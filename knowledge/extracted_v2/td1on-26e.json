@@ -1,0 +1,87 @@
+{
+  "schema_version": 2,
+  "source_metadata": {
+    "document_id": "td1on-26e",
+    "file_path": "cra/td1on-26e.pdf",
+    "title": "TD1ON Personal Tax Credits Return - 2026",
+    "publisher": "Canada Revenue Agency",
+    "source_url": "https://www.canada.ca/content/dam/cra-arc/formspubs/pbg/td1on/td1on-26e.pdf",
+    "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/td1-personal-tax-credits-returns/td1-forms-pay-received-on-january-1-later/td1on.html",
+    "source_link_checked_on": "2026-10-14",
+    "edition_year": 2026,
+    "effective_from": "2026-01-01",
+    "effective_to": null,
+    "jurisdictions": [
+      "Ontario"
+    ],
+    "topics": [
+      "personal_tax_credits",
+      "TD1ON"
+    ],
+    "document_type": "form",
+    "pay_periods_per_year": null,
+    "needs_update_review": false,
+    "content_review_status": "pending",
+    "ingestion_status": "not_started",
+    "size_bytes": 60592,
+    "sha256": "98ccd2248e946bc4122885134a781c6c7d60d68f854b2f4c5878082424ac33f1",
+    "notes": [
+      "Blank government form only; contains no fictional employee declarations.",
+      "Standard and fillable versions cover the same form. Deduplicate equivalent content during indexing."
+    ]
+  },
+  "extraction_tools": {
+    "pypdf": "6.20.1",
+    "pdfplumber": "0.11.10"
+  },
+  "review_status": "pending",
+  "page_count": 2,
+  "pages": [
+    {
+      "pdf_page_number": 1,
+      "text": "Protected B when completed\nTD1ON2026 Ontario \n  Personal Tax Credits Return\nRead page 2 before filling out this form. Your employer or payer will use this form to determine the amount of your provincial tax deductions.\nFill out this form based on the best estimate of your circumstances.\nLast name First name and initial(s) Date of birth (YYYY/MM/DD) Employee number\nAddress Postal code For non-residents only\nCountry of permanent residence\nSocial insurance number \n1. Basic personal amount – Every person employed in Ontario and every pensioner residing in Ontario can claim this amount.\nIf you will have more than one employer or payer at the same time in 2026, see \"More than one employer or payer at the same time\"\non page 2.\n2. Age amount – If you will be 65 or older on December 31, 2026, and your net income will be $47,210 or less, enter $6,342. You may \nenter a partial amount if your net income for the year will be between $47,210 and $89,490. To calculate a partial amount, fill out the \nline 2 section of Form TD1ON-WS, Worksheet for the 2026 Ontario Personal Tax Credits Return. \n3. Pension income amount – If you will receive regular pension payments from a pension plan or fund (not including Canada Pension \nPlan, Quebec Pension Plan, Old Age Security, or Guaranteed Income Supplement payments), enter whichever is less: $1,796 or \nyour estimated annual pension.\n4. Disability amount – If you will claim the disability amount on your income tax and benefit return by using Form T2201,\nDisability Tax Credit Certificate, enter $10,494.\n5. Spouse or common-law partner amount – Enter $11,029 if you are supporting your spouse or common-law partner and both of \nthe following conditions apply:\n Your spouse or common-law partner lives with you\n Your spouse or common-law partner's net income for the year will be $1,103 or less\nYou may enter a partial amount if your spouse's or common-law partner's net income for the year will be between $1,103 and $12,132. \nTo calculate a partial amount, fill out the line 5 section of Form TD1ON-WS. \n6. Amount for an eligible dependant – Enter $11,029 if you are supporting an eligible dependant and all of the following \nconditions apply:\n You do not have a spouse or common-law partner, or you have a spouse or common-law partner who does not live with you and \nwho you are not supporting or being supported by\n The dependant is related to you and lives with you \n The dependant's net income for the year will be $1,103 or less\nYou may enter a partial amount if the eligible dependant's net income for the year will be between $1,103 and $12,132. To calculate a \npartial amount, fill out the line 6 section of Form TD1ON-WS.\n7. Ontario caregiver amount – You may claim this amount if you are supporting an eligible infirm dependant aged 18 or older:\nyour child or your grandchild (or your spouse or common-law partner);\nyour parent, grandparent, brother, sister, aunt, uncle, niece or nephew who is resident in Canada (or your spouse or\ncommon-law partner)\n\nTo calculate this amount, fill out the line 7 section of Form TD1ON-WS. \n8. Amounts transferred from your spouse or common-law partner – If your spouse or common-law partner will not use all of their \nage amount, pension income amount, or disability amount on their income tax and benefit return, enter the unused amount.\n9. Amounts transferred from a dependant – If your dependant will not use all of their disability amount on their income tax and \nbenefit return, enter the unused amount. \n10. TOTAL CLAIM AMOUNT – Add lines 1 to 9.\nYour employer or payer will use this amount to determine the amount of your provincial tax deductions. \nTD1ON E (26) (Ce formulaire est disponible en français.) Page 1 of 2\n 12,989",
+      "tables": [
+        [
+          [
+            "Last name",
+            "First name and initial(s)",
+            null,
+            "Date of birth (YYYY/MM/DD)",
+            null,
+            "Employee number",
+            null
+          ],
+          [
+            "Address",
+            null,
+            "Postal code",
+            null,
+            "For non-residents only\nCountry of permanent residence",
+            null,
+            "Social insurance number"
+          ],
+          [
+            "1. Basic personal amount – Every person employed in Ontario and every pensioner residing in Ontario can claim this amount.\nIf you will have more than one employer or payer at the same time in 2026, see \"More than one employer or payer at the same time\"\n12,989\non page 2.\n2. Age amount – If you will be 65 or older on December 31, 2026, and your net income will be $47,210 or less, enter $6,342.You may\nenter a partial amountif yournet income for the year will be between $47,210 and $89,490. To calculate a partial amount, fill out the\nline 2 section of Form TD1ON-WS, Worksheet for the 2026 Ontario Personal Tax Credits Return.\n3. Pension income amount – If you will receive regular pension payments from a pension plan or fund (not including Canada Pension\nPlan, Quebec Pension Plan, Old Age Security, or Guaranteed Income Supplement payments), enter whichever is less: $1,796 or\nyour estimated annual pension.\n4. Disability amount – If you will claim the disability amount on your income tax and benefit return by using Form T2201,\nDisability Tax Credit Certificate, enter $10,494.\n5. Spouse or common-law partner amount – Enter $11,029 if you are supporting your spouse or common-law partner and both of\nthe following conditions apply:\n(cid:129) Your spouse or common-law partner lives with you\n(cid:129) Your spouse or common-law partner's net income for the year will be $1,103 or less\nYou may enter a partial amount if your spouse's or common-law partner's net income for the year will be between $1,103 and $12,132.\nTo calculate a partial amount, fill out the line 5 section of Form TD1ON-WS.\n6. Amount for an eligible dependant – Enter $11,029 if you are supporting an eligible dependant and all of the following\nconditions apply:\n(cid:129) You do not have a spouse or common-law partner, or you have a spouse or common-law partner who does not live with you and\nwho you are not supporting or being supported by\n(cid:129) The dependant is related to you and lives with you\n(cid:129) The dependant's net income for the year will be $1,103 or less\nYou may enter a partial amount if the eligible dependant's net income for the year will be between $1,103 and $12,132. To calculate a\npartial amount, fill out the line 6 section of Form TD1ON-WS.\n7. Ontario caregiver amount – You may claim this amount if you are supporting an eligible infirm dependant aged 18 or older:\n(cid:129) your child or your grandchild (or your spouse or common-law partner);\n(cid:129) your parent, grandparent, brother, sister, aunt, uncle, niece or nephew who is resident in Canada (or your spouse or\ncommon-law partner)\nTo calculate this amount, fill out the line 7 section of Form TD1ON-WS.\n8. Amounts transferred from your spouse or common-law partner – If your spouse or common-law partner will not use all of their\nage amount, pension income amount, or disability amount on their income tax and benefit return, enter the unused amount.\n9. Amounts transferred from a dependant – If your dependant will not use all of their disability amount on their income tax and\nbenefit return, enter the unused amount.\n10. TOTAL CLAIM AMOUNT – Add lines 1 to 9.\nYour employer or payer will use this amount to determine the amount of your provincial tax deductions.",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        ]
+      ],
+      "table_extraction_strategy": "default",
+      "warnings": [],
+      "review_status": "pending"
+    },
+    {
+      "pdf_page_number": 2,
+      "text": "Protected B when completed\nFilling out Form TD1ON\nFill out this form only if you are an employee working in Ontario or a pensioner residing in Ontario and any of the following apply:\n you have a new employer or payer, and you will receive salary, wages, commissions, pensions, employment insurance benefits, or any other \nremuneration\n you want to change the amounts you previously claimed (for example, the number of your eligible dependants has changed)\n you want to increase the amount of tax deducted at source\nSign and date it, and give it to your employer or payer.\nIf you do not fill out Form TD1ON, your employer or payer will deduct taxes after allowing the basic personal amount only.\nMore than one employer or payer at the same time\nIf you have more than one employer or payer at the same time and you have already claimed personal tax credit amounts on another\nForm TD1ON for 2026, you cannot claim them again. If your total income from all sources will be more than the personal tax credits you claimed \non another Form TD1ON, check this box, enter \"0\" on line 10 and do not fill in lines 2 to 9.\nTotal income is less than the total claim amount\nTick this box if your total income for the year from all employers and payers will be less than your total claim amount on line 10.\nYour employer or payer will not deduct tax from your earnings.\nAdditional tax to be deducted\nIf you want to have more tax deducted at source, fill out section \"Additional tax to be deducted\" on the federal Form TD.\nReduction in tax deductions\nYou may ask to have less tax deducted at source if you are eligible for deductions or non-refundable tax credits that are not listed on this form (for example, \nperiodic contributions to a registered retirement savings plan (RRSP), child care or employment expenses, charitable donations, and tuition and education \namounts carried forward from the previous year). To make this request, fill out Form T1213, Request to Reduce Tax Deductions at Source, to get a letter of \nauthority from your tax services office. Give the letter of authority to your employer or payer. You do not need a letter of authority if your employer deducts \nRRSP contributions from your salary.\nForms and publications\nTo get our forms and publications, go to canada.ca/cra-forms-publications or call 1-800-959-5525.\nPersonal information (including the SIN) is collected and used to administer or enforce the Income Tax Act and related programs and activities including \nadministering tax, benefits, audit, compliance, and collection. The information collected may be disclosed to other federal, provincial, territorial, aboriginal or \nforeign government institutions to the extent authorized by law. Failure to provide this information may result in paying interest or penalties, or in other actions. \nUnder the Privacy Act, individuals have a right of protection, access to and correction of their personal information, and to file a complaint with the Privacy \nCommissioner of Canada regarding the handling of their personal information. Refer to Personal Information Bank CRA PPU 120 on Info Source at\ncanada.ca/cra-info-source.\nCertification\nI certify that the information given on this form is correct and complete.\nSignature\nIt is a serious offence to make a false return.\nDate\nTD1ON E (26) Page 2 of 2",
+      "tables": [],
+      "table_extraction_strategy": "default",
+      "warnings": [],
+      "review_status": "pending"
+    }
+  ]
+}

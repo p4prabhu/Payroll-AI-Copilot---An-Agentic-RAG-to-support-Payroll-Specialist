@@ -1,0 +1,17 @@
+# PDF text and table extraction
+pypdf==6.20.1
+pdfplumber==0.11.10
+
+# Local environment configuration
+python-dotenv==1.2.4
+
+# Numerical arrays used by Qdrant local mode
+numpy==1.26.4
+
+# Local vector database
+qdrant-client==1.19.1
+
+# Agent workflow and Perplexity tool-calling model
+langgraph==1.2.15
+langchain-core==1.6.10
+langchain-perplexity==1.4.1

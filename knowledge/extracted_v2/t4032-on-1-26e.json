@@ -1,0 +1,717 @@
+{
+  "schema_version": 2,
+  "source_metadata": {
+    "document_id": "t4032-on-1-26e",
+    "file_path": "cra/t4032-on-1-26e.pdf",
+    "title": "T4032 Ontario - General information - January 2026",
+    "publisher": "Canada Revenue Agency",
+    "source_url": "https://www.canada.ca/content/dam/cra-arc/migration/cra-arc/tx/bsnss/tpcs/pyrll/t4032/2026/t4032-on-1-26e.pdf",
+    "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032on-jan.html",
+    "source_link_checked_on": "2026-10-14",
+    "edition_year": 2026,
+    "effective_from": "2026-01-01",
+    "effective_to": null,
+    "jurisdictions": [
+      "Ontario"
+    ],
+    "topics": [
+      "CPP",
+      "CPP2",
+      "EI",
+      "federal_income_tax",
+      "Ontario_income_tax",
+      "TD1"
+    ],
+    "document_type": "guide",
+    "pay_periods_per_year": null,
+    "needs_update_review": false,
+    "content_review_status": "pending",
+    "ingestion_status": "not_started",
+    "size_bytes": 496744,
+    "sha256": "c29b582f1a576b9f98129f8879720930a98dabb04d0784fe7e90ec8bf8d49d0a",
+    "notes": [
+      "General-information section; detailed deduction tables are catalogued separately."
+    ]
+  },
+  "extraction_tools": {
+    "pypdf": "6.20.1",
+    "pdfplumber": "0.11.10"
+  },
+  "review_status": "pending",
+  "page_count": 16,
+  "pages": [
+    {
+      "pdf_page_number": 1,
+      "text": "  \n \n \n \nT4032-ON,  \nPayroll Deductions Tables –  \nCPP, EI, and income tax deductions –  \nOntario \n \n \nEffective \nJanuary 1, 2026 \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \nT4032-ON-01(E) \n",
+      "tables": [],
+      "table_extraction_strategy": "default",
+      "warnings": [],
+      "review_status": "pending"
+    },
+    {
+      "pdf_page_number": 2,
+      "text": "  \nA-1 \n \nWhat’s new as of January 1, 2026 \nThe major changes made to this guide since the last edition are outlined. \nThis guide reflects some income tax changes recently announced which, if enacted as proposed, would be effective January 1, 2026. At \nthe time of publishing, some of these proposed changes were not law. We recommend that you use the new payroll deductions tables in \nthis guide for withholding starting with the first payroll in January 2026. \nFederal legislative updates  \nOn May 27, 2025, the Government of Canada tabled a Notice of Ways and Means Motion with proposed legislation that reduces the  \nlowest income tax rate from 15% to 14%. For 2025, the lowest tax rate was set at 14.5%.  \nEffective July 2025, a prorated tax rate of 14% was used. \nFor 2026 and subsequent tax years, the lowest federal tax bracket will be 14%. \nThe tax rates and brackets are as follows: \n◼ for income under $58,523, the tax rate is 14% \n◼ for income from $58,523 to $117,045, the tax rate is 20.5% \n◼ for income from $117,045 to $181,440, the tax rate is 26% \n◼ for income from $181,440 to $258,482, the tax rate is 29% \n◼ for income of $258,482 and over, the tax rate is 33% \nSee Chart 1 for rates, income thresholds, and constants. \nPayroll Deductions Tables \nYou can download guides T4008, Payroll Deductions Supplementary Tables, and T4032, Payroll Deductions Tables, from our webpage \nat canada.ca/payroll. You can also choose to print only the pages or information that you need. \nPayroll Deductions Online Calculator (PDOC) \nFor your 2026 payroll deductions, we strongly recommend using our PDOC. The online calculator makes it faster and easier to calculate \npayroll deductions. The calculator also uses exact salary figures and provides more accurate calculations. It calculates payroll deductions \nfor the applicable province (except Quebec) or territory for the most common pay periods. \nPDOC is available at canada.ca/pdoc. \nLet us notify you \nWe provide a digital service that can notify you immediately, free of charge, of any changes for payroll deductions. \nTo subscribe, visit our webpage at canada.ca/cra-email-lists and enter your business’s email address for each mailing list that you want \nto join. \nSpecial Notice \nPayroll Deductions Tables (T4032) \nThe Canada Revenue Agency is no longer publishing the paper and CD versions of the Guide T4032, Payroll Deductions Tables. The \ndigital versions of the guide continue to be available on our website at canada.ca/payroll. ",
+      "tables": [
+        [
+          [
+            "Federal legislative updates"
+          ],
+          [
+            "On May 27, 2025, the Government of Canada tabled a Notice of Ways and Means Motion with proposed legislation that reduces the\nlowest income tax rate from 15% to 14%. For 2025, the lowest tax rate was set at 14.5%.\nEffective July 2025, a prorated tax rate of 14% was used.\nFor 2026 and subsequent tax years, the lowest federal tax bracket will be 14%.\nThe tax rates and brackets are as follows:\n◼ for income under $58,523, the tax rate is 14%\n◼ for income from $58,523 to $117,045, the tax rate is 20.5%\n◼ for income from $117,045 to $181,440, the tax rate is 26%\n◼ for income from $181,440 to $258,482, the tax rate is 29%\n◼ for income of $258,482 and over, the tax rate is 33%\nSee Chart 1 for rates, income thresholds, and constants."
+          ]
+        ],
+        [
+          [
+            "Payroll Deductions Tables",
+            null
+          ],
+          [
+            "You can download guides T4008, Payroll Deductions Supplementary Tables, and T4032, Payroll Deductions Tables, from our webpage",
+            null
+          ],
+          [
+            "at",
+            "canada.ca/payroll. You can also choose to print only the pages or information that you need."
+          ]
+        ]
+      ],
+      "table_extraction_strategy": "default",
+      "warnings": [],
+      "review_status": "pending"
+    },
+    {
+      "pdf_page_number": 3,
+      "text": "  \nA-2 \n \nTable of contents \nPage \nA \nWhat’s new as of January 1, 2026 ..................................................................................................................................................  A-1 \nFederal legislative updates .............................................................................................................................................................  A-1 \nPayroll Deductions Tables .................................................................................................................................................................  A-1 \nPayroll Deductions Online Calculator (PDOC) .................................................................................................................................  A-1 \nLet us notify you ................................................................................................................................................................................  A-1 \nSpecial Notice ...................................................................................................................................................................................  A-1 \nPayroll Deductions Tables (T4032) ...................................................................................................................................................  A-1 \nWho should use this guide? .............................................................................................................................................................  A-4 \nWhat if your pay period is not in this guide? .....................................................................................................................................  A-4 \nWhich provincial or territorial tax table should you use? ..................................................................................................................  A-4 \nFederal tax for 2026 .........................................................................................................................................................................  A-4 \nIndexing for 2026 ..............................................................................................................................................................................  A-4 \nTax rates and income thresholds........................................................................................................................................................  A-4 \nChart 1 – 2026 Federal tax rates and income thresholds ................................................................................................................  A-4 \nCanada Employment Amount ...........................................................................................................................................................  A-5 \nBasic personal amounts .....................................................................................................................................................................  A-5 \nOntario tax for 2026 ........................................................................................................................................................................  A-5 \nOntario indexing for 2026 .................................................................................................................................................................  A-5 \nTax rates and income thresholds........................................................................................................................................................  A-6 \nChart 2 – 2026 Ontario tax rates and income thresholds ...............................................................................................................  A-6 \nOntario health premium .....................................................................................................................................................................  A-6 \nSurtax ................................................................................................................................................................................................  A-6 \nTax reduction .....................................................................................................................................................................................  A-6 \nBasic personal amounts .....................................................................................................................................................................  A-6 \nCanada Pension Plan (CPP) and Employment Insurance (EI) .......................................................................................................  A-7 \nCPP contributions for 2026 ...............................................................................................................................................................  A-7 \nSecond additional CPP contribution for 2026 ...................................................................................................................................  A-7 \nEI premiums for 2026 ........................................................................................................................................................................  A-7 \nPersonal tax credits returns (TD1 forms) ......................................................................................................................................  A-8 \nClaim codes ......................................................................................................................................................................................  A-8 \nExplanation of claim codes ................................................................................................................................................................  A-8 \nClaim code 0 ..................................................................................................................................................................................  A-8 \nClaim codes 1 to 10 .......................................................................................................................................................................  A-8 \nIndexing of claim codes amounts ..................................................................................................................................................  A-8 \nChart 3 – 2026 Federal claim codes (using maximum BPA) .........................................................................................................  A-8 \nChart 4 – 2026 Ontario claim codes...............................................................................................................................................  A-9 \nForm TD1X, Statement of Commission Income and Expenses for Payroll Tax Deductions ....................................................  A-9 \nHow to use the tables in this guide .................................................................................................................................................  A-9 \nCanada Pension Plan tables ...............................................................................................................................................................  A-9 \nExample of an employee earning more than the YAMPE .................................................................................................................  A-10 \nSection B(i) – CPP contributions table ..............................................................................................................................................  A-10 \nSection B(ii) – Second additional CPP contributions table ...............................................................................................................  A-10 \nSection C – EI premiums table ..........................................................................................................................................................  A-10 \nTax deductions tables ........................................................................................................................................................................  A-11 \nSection D – Federal tax deduction table ............................................................................................................................................  A-11 \nSection E – Provincial tax deduction table ........................................................................................................................................  A-11 \nExample .........................................................................................................................................................................................  A-11 \nAdditional information about payroll deductions.........................................................................................................................  A-11 \nDeducting tax from income not subject to CPP contributions or EI premiums .................................................................................  A-11 \nStep-by-step calculation of tax deductions ....................................................................................................................................  A-11 \nExample – Annual Pensionable Income Below YMPE .....................................................................................................................  A-12 \nCalculate annual taxable income ...................................................................................................................................................  A-12 \nCalculate federal tax ......................................................................................................................................................................  A-12 ",
+      "tables": [
+        [
+          [
+            "Ontario health premium"
+          ],
+          [
+            "Surtax"
+          ],
+          [
+            "Tax reduction"
+          ],
+          [
+            "Basic personal amounts"
+          ]
+        ]
+      ],
+      "table_extraction_strategy": "default",
+      "warnings": [],
+      "review_status": "pending"
+    },
+    {
+      "pdf_page_number": 4,
+      "text": "  \nA-3 \n \nCalculate provincial tax .................................................................................................................................................................  A-13 \nCalculate total tax and the tax deduction for the pay period ..........................................................................................................  A-13 \nExample – Pensionable Income Above YMPE .................................................................................................................................  A-14 \nCalculate annual taxable income ...................................................................................................................................................  A-14 \nCalculate federal tax ......................................................................................................................................................................  A-14 \nCalculate provincial tax .................................................................................................................................................................  A-15 \nCalculate total tax and the tax deduction for the pay period ..........................................................................................................  A-15 \n \n \nThis guide uses plain language to explain the most common tax situations. If you need more help, visit canada.ca/payroll.  ",
+      "tables": [],
+      "table_extraction_strategy": "default",
+      "warnings": [],
+      "review_status": "pending"
+    },
+    {
+      "pdf_page_number": 5,
+      "text": "  \nA-4 \n \nWho should use this guide? \nThis guide is intended for the employer and the payer. It contains tables for federal and provincial tax deductions, CPP contributions and \nEI premiums. It will help you determine the payroll deductions for your employees or pensioners. \nThe provincial and federal tables are designed to accurately calculate the deductions provided by the CPP additional contributions in \nmost situations. However, for the following situations, we recommend using the PDOC for more accurate calculations:  \n◼ If at any point during the year, the employee reaches the YMPE of $74,600 or; \n◼ A payment of remuneration, if annualized by the number of pay periods in the cycle, is over the YMPE of $74,600 \nIf the tables are used in these situations, it may result in over or under deduction of federal and provincial taxes during the year. \nFor more information on deducting, remitting, and reporting payroll deductions, visit canada.ca/payroll.  \nNote \nRefer to the 2025 edition of Payroll Deductions Tables to resolve any pensionable and insurable earnings review (PIER) deficiencies \nthat we identify in processing your 2025 T4 return. \nWhat if your pay period is not in this guide? \nThis guide contains the most common pay periods: weekly, biweekly (every two weeks), semi-monthly, and monthly. If you have \nunusual pay periods, such as daily (240 working days), or 10, 13, or 22 pay periods a year, see the Guide T4008, Payroll Deductions \nSupplementary Tables, or the PDOC to determine tax deductions. \nWhich provincial or territorial tax table should you use? \nBefore you decide which tax table to use, you have to determine your employee’s province or territory of employment. This dep ends on \nwhether you require the employee to report for work at your place of business. \nIf the employee reports for work at your place of business, the province or territory of employment is considered to be the province or \nterritory where your business is located. \nTo withhold payroll deductions, use the tax table for that province or territory of employment. \nIf you do not require the employee to report for work at your place of business, the province or territory of employment is the province \nor territory in which your business is located and from which you pay your employee’s salary. \nFor more information and examples, visit canada.ca/payroll. \nFederal tax for 2026 \nIndexing for 2026 \nFor 2026, the federal income thresholds, the personal amounts and the Canada employment amount have been changed based on \nchanges in the consumer price index. \nThe federal indexing factor for January 1, 2026 is 2.0%. The tax credits corresponding to the claim codes in the tables have been \nindexed accordingly. Employees will automatically receive the indexing increase, whether or not they file Form TD1, 2026 Personal \nTax Credits Return. \nTax rates and income thresholds \nFor 2026, the federal tax rates and income thresholds are: \nChart 1 – 2026 Federal tax rates and income thresholds  \nAnnual taxable income ($) from Annual taxable income ($) to Federal tax rate, R Constant ($), K \n0.00 58,523.00 0.1400 0 \n58,523.01 117,045.00 0.2050 3,804 \n117,045.01 181,440.00 0.2600 10,241 \n181,440.01 258,482.00 0.2900 15,685 \n258,482.01 and over 0.3300 26,024 ",
+      "tables": [
+        [
+          [
+            "Annual taxable income ($) from",
+            "Annual taxable income ($) to",
+            "Federal tax rate, R",
+            "Constant ($), K"
+          ],
+          [
+            "0.00",
+            "58,523.00",
+            "0.1400",
+            "0"
+          ],
+          [
+            "58,523.01",
+            "117,045.00",
+            "0.2050",
+            "3,804"
+          ],
+          [
+            "117,045.01",
+            "181,440.00",
+            "0.2600",
+            "10,241"
+          ],
+          [
+            "181,440.01",
+            "258,482.00",
+            "0.2900",
+            "15,685"
+          ],
+          [
+            "258,482.01",
+            "and over",
+            "0.3300",
+            "26,024"
+          ]
+        ]
+      ],
+      "table_extraction_strategy": "default",
+      "warnings": [],
+      "review_status": "pending"
+    },
+    {
+      "pdf_page_number": 6,
+      "text": "  \nA-5 \n \n \nCanada Employment Amount \nThe non-refundable tax credit for CEA is built into the federal payroll deductions tables. The federal CEA is the lesser of: \n◼ $1,501 and \n◼ the individual’s employment income for the year \nThe maximum annual non-refundable tax credit is $210.14. \nPension income is not eligible for this credit. If you are paying pension income, use the PDOC to calculate the tax deduction. \nBasic personal amounts \nThe federal personal amounts for 2026 are: \nMaximum basic personal amount ($) Minimum basic personal amount ($) \n16,452 14,829 \nFor more detailed information on the personal amounts, go to Form TD1. \nOntario tax for 2026 \nOntario indexing for 2026 \nFor 2026, the provincial income thresholds, the personal amounts, and the tax reduction amounts have been indexed. They have been \nchanged based on changes in the consumer price index. \nThe indexing factor for January 1, 2026, is 1.9%. The tax credits corresponding to the claim codes in the tables have been indexed \naccordingly. Employees will automatically receive the indexing increase, whether or not they file Form TD1ON, 2026 Ontario Personal \nTax Credits Return. ",
+      "tables": [
+        [
+          [
+            "Maximum basic personal amount ($)",
+            null,
+            null,
+            "Minimum basic personal amount ($)",
+            null,
+            null
+          ],
+          [
+            "",
+            "16,452",
+            "",
+            "",
+            "14,829",
+            ""
+          ]
+        ],
+        [
+          [
+            "The indexing factor for January 1, 2026, is 1.9"
+          ],
+          [
+            "accordingly. Employees will automatically receive the indexing increase, whether or not they file"
+          ],
+          [
+            "Tax Credits Return."
+          ]
+        ]
+      ],
+      "table_extraction_strategy": "default",
+      "warnings": [],
+      "review_status": "pending"
+    },
+    {
+      "pdf_page_number": 7,
+      "text": "  \nA-6 \n \nTax rates and income thresholds \nFor 2026, the Ontario tax rates and income thresholds are: \nChart 2 – 2026 Ontario tax rates and income thresholds \nAnnual taxable income ($) from Annual taxable income ($) to Provincial tax rate, V Constant ($), KP \n0.00 53,891.00 0.0505 0 \n53,891.01 107,785.00 0.0915 2,210 \n107,785.01 150,000.00 0.1116 4,376 \n150,000.01 220,000.00 0.1216 5,876 \n220,000.01 and over 0.1316 8,076 \n \nOntario health premium \nFor 2026, the Ontario health premium is: \n◼ when taxable income is less than or equal to $20,000, the premium is $0 \n◼ when taxable income is greater than $20,000 and less than or equal to $36,000, the premium is equal to the lesser of (i) $300 and \n(ii) 6% of taxable income greater than $20,000 \n◼ when taxable income is greater than $36,000 and less than or equal to $48,000, the premium is equal to the lesser of (i) $450 and  \n    (ii) $300 plus 6% of taxable income greater than $36,000 \n◼ when taxable income is greater than $48,000 and less than or equal to $72,000, the premium is equal to the lesser of (i) $600 and \n(ii) $450 plus 25% of taxable income greater than $48,000 \n◼ when taxable income is greater than $72,000 and less than or equal to $200,000, the premium is equal to the lesser of (i) $750 and \n(ii) $600 plus 25% of taxable income greater than $72,000  \n◼ when taxable income is greater than $200,000, the premium is equal to the lesser of (i) $900 and (ii) $750 plus 25% of taxable income \ngreater than $200,000 \nSurtax \nFor 2026, the Ontario’s surtax is: \n◼ where the basic provincial tax payable is less than or equal to $5,818, the surtax is $0 \n◼ where the basic provincial tax payable is greater than $5,818 and less than or equal to $7,446, the surtax is 20% of the basic \nprovincial tax payable over $5,818 \n◼ where the basic provincial tax payable is greater than $7,446, the surtax is 20% of the basic provincial tax payable over $5,818, \nplus 36% of the basic provincial tax payable over $7,446 \nTax reduction \nFor 2026, Ontario’s tax reduction amounts are: \nBasic personal amount .................................................................................................................      $300 \nAmount for each dependant under age 18 ....................................................................................      $575 \nAmount for each dependant with a disability that the employee or pensioner  \nhas claimed on Form TD1ON ......................................................................................................      $575 \nThe reduction is equal to twice the individual’s personal amounts minus the provincial tax payable before reduction. The redu ction \ncannot be more than the provincial tax payable before reduction. The reduction is nil when the provincial tax payable before reduction \nis more than twice the personal amounts. Because of the way the reduction for dependants with disabilities is determined, we include \nonly the basic personal amount in the provincial tax tables. \nBasic personal amounts \nFor 2026, the Ontario non-refundable basic personal tax credit is $12,989. \nFor more detailed information on the personal amounts, see Form TD1ON, 2026 Ontario Personal Tax Credits Return. ",
+      "tables": [
+        [
+          [
+            "Annual taxable income ($) from",
+            "Annual taxable income ($) to",
+            "Provincial tax rate, V",
+            "Constant ($), KP"
+          ],
+          [
+            "0.00",
+            "53,891.00",
+            "0.0505",
+            "0"
+          ],
+          [
+            "53,891.01",
+            "107,785.00",
+            "0.0915",
+            "2,210"
+          ],
+          [
+            "107,785.01",
+            "150,000.00",
+            "0.1116",
+            "4,376"
+          ],
+          [
+            "150,000.01",
+            "220,000.00",
+            "0.1216",
+            "5,876"
+          ],
+          [
+            "220,000.01",
+            "and over",
+            "0.1316",
+            "8,076"
+          ]
+        ],
+        [
+          [
+            "Ontario health premium"
+          ],
+          [
+            "For 2026, the Ontario health premium is"
+          ]
+        ],
+        [
+          [
+            "when taxable income is greater than $20,000 and less than or equal to $36,000, the premium is equal to the lesser of (i)",
+            "$300 and"
+          ]
+        ],
+        [
+          [
+            "when taxable income is greater than $36,000 and less than or equal to $48,000, the premium is equal to the lesser of (i) $450 and"
+          ],
+          [
+            "(ii) $300 plus 6% of taxable income greater than $36,000"
+          ]
+        ],
+        [
+          [
+            "The reduction is equal to twice the individual’s personal amounts minus the provincial tax payable before reduction. The reduction"
+          ],
+          [
+            "cannot be more than the provincial tax payable before reduction. The reduction is nil when the provincial tax payable before reduction"
+          ],
+          [
+            "is more than twice the personal amounts. Because of the way the reduction for dependants with disabilities is determined, we include"
+          ],
+          [
+            "only the basic personal amount in the provincial tax tables."
+          ]
+        ],
+        [
+          [
+            "For 2026, the Ontario non-refundable basic personal tax credit is $12,989."
+          ],
+          [
+            "For more detailed information on the personal amounts, see Form TD1ON, 2026 Ontario Personal Tax Credits Return."
+          ]
+        ]
+      ],
+      "table_extraction_strategy": "default",
+      "warnings": [],
+      "review_status": "pending"
+    },
+    {
+      "pdf_page_number": 8,
+      "text": "  \nA-7 \n \nCanada Pension Plan (CPP) and Employment Insurance (EI) \nCPP contributions for 2026 \nCPP \nYear’s Maximum \nPensionable \nEarnings (YMPE) \nBasic Exemption \nYear’s Maximum \nContributory Earnings \n(YMCE) \nEmployee and \nEmployer \nContribution \nRate \nMaximum \nEmployee and \nEmployer \nContribution \nCPP base \ncontribution \n74,600.00 3,500.00 71,100.00 \n0.0495  3,519.45 \nFirst additional \nCPP contribution 0.0100 711.00 \nCPP contribution* 74,600.00 3,500.00 71,100.00 0.0595 4,230.45 \n*CPP base and first additional contributions are included in the CPP contributions.  \nSecond additional CPP contribution for 2026 \n  \n \nYear’s Maximum \nPensionable \nEarnings (YMPE) \nYear’s Additional \nMaximum \nPensionable \nEarnings (YAMPE) \n \nPensionable earnings \nsubject to Second \nAdditional \nContribution \nSecond \nAdditional \nEmployee and \nEmployer \nContribution \nRate \nMaximum Second \nAdditional \nEmployee and \nEmployer \nContribution \nSecond additional \nCPP contribution 74,600.00 85,000.00 10,400.00 0.0400 416.00 \nYou stop deducting CPP and CPP2 (if applicable) when the employee reaches their maximum annual contribution for the year. For more \ninformation, visit canada.ca/payroll. \nNote \nAs an employer, you must remit the employer’s and employee’s share of CPP and CPP2 contributions. \nEI premiums for 2026 \nEI \nMaximum Annual \nInsurable \nEarnings \nEmployee \nContribution Rate \nEmployer \nContribution Rate \nMaximum Annual \nEmployee \nPremium \nMaximum Annual \nEmployer \nPremium \nCanada \nexcept QC 68,900.00 0.0163 0.02282 1,123.07 1,572.30 \nYou stop deducting EI when the employee reaches their maximum annual premium. For more information, visit canada.ca/payroll. \nNote \nAs an employer, you must remit the employer’s and employee’s share of EI premiums. \n  ",
+      "tables": [
+        [
+          [
+            "CPP",
+            "Year’s Maximum\nPensionable\nEarnings (YMPE)",
+            null,
+            "Basic Exemption",
+            null,
+            null,
+            "Year’s Maximum\nContributory Earnings\n(YMCE)",
+            null,
+            "Employee and\nEmployer\nContribution\nRate",
+            null,
+            "Maximum\nEmployee and\nEmployer\nContribution",
+            null
+          ],
+          [
+            "CPP base\ncontribution",
+            "74,600.00",
+            null,
+            "3,500.00",
+            null,
+            null,
+            "71,100.00",
+            null,
+            "0.0495",
+            null,
+            "3,519.45",
+            null
+          ],
+          [
+            "First additional\nCPP contribution",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "0.0100",
+            null,
+            "711.00",
+            null
+          ],
+          [
+            "CPP contribution*",
+            "",
+            "74,600.00",
+            "",
+            "3,500.00",
+            "",
+            "71,100.00",
+            "",
+            "",
+            "0.0595",
+            "4,230.45",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            "Year’s Maximum\nPensionable\nEarnings (YMPE)",
+            "Year’s Additional\nMaximum\nPensionable\nEarnings (YAMPE)",
+            "Pensionable earnings\nsubject to Second\nAdditional\nContribution",
+            "Second\nAdditional\nEmployee and\nEmployer\nContribution\nRate",
+            "Maximum Second\nAdditional\nEmployee and\nEmployer\nContribution"
+          ],
+          [
+            "Second additional\nCPP contribution",
+            "74,600.00",
+            "85,000.00",
+            "10,400.00",
+            "0.0400",
+            "416.00"
+          ]
+        ],
+        [
+          [
+            "EI",
+            "Maximum Annual\nInsurable\nEarnings",
+            "Employee\nContribution Rate",
+            "Employer\nContribution Rate",
+            "Maximum Annual\nEmployee\nPremium",
+            "Maximum Annual\nEmployer\nPremium"
+          ],
+          [
+            "Canada\nexcept QC",
+            "68,900.00",
+            "0.0163",
+            "0.02282",
+            "1,123.07",
+            "1,572.30"
+          ]
+        ]
+      ],
+      "table_extraction_strategy": "default",
+      "warnings": [],
+      "review_status": "pending"
+    },
+    {
+      "pdf_page_number": 9,
+      "text": "  \nA-8 \n \nPersonal tax credits returns (TD1 forms) \nYou may have to ask your employees or your pensioners to complete a federal and a provincial personal tax credits return using a federal \nForm TD1 and a provincial Form TD1. \nFor more information, visit canada.ca/payroll. \nClaim codes \nThe total personal amount an employee claims on a TD1 form will determine which claim code you use. The claim amounts that \ncorrespond to the federal claim codes are not the same as the claim amounts that correspond to the provincial claim codes. Se e Chart 3 \nand Chart 4. \nExplanation of claim codes \nClaim code 0 \nThis code represents no claim amount. If the federal claim code is “0” because the employee is a non-resident, the provincial claim \ncode must also be “0.” This code may also be used if the employee indicated they have more than one employee or payer at the same \ntime and have entered “0” on the front page of Form TD1 for 2026. \nClaim codes 1 to 10 \nThe claim code amounts do not appear on either the federal or the provincial TD1 form.  \nYou match the “Total claim amount” reported on your employee’s or pensioner’s TD1 forms with the appropriate claim codes. Then, \nyou look up the tax for the employee’s pay under the claim code in the federal and provincial tax tables for the pay period. \nIndexing of claim codes amounts \nThe credits that apply to each federal and provincial claim code have been automatically increased in the tax tables by the indexing \nfactor for the current year. If your employee did not complete the federal and provincial TD1 forms for 2026, you continue to deduct \nincome tax using the same claim code that you used last year. \nChart 3 – 2026 Federal claim codes (using maximum BPA) \nTotal claim amount ($) from Total claim amount ($) to Claim code \nNo claim amount No claim amount 0 \n0.00 16,452.00 1 \n16,452.01 19,285.00 2 \n19,285.01 22,118.00 3 \n22,118.01 24,951.00 4 \n24,951.01 27,784.00 5 \n27,784.01 30,617.00 6 \n30,617.01 33,450.00 7 \n33,450.01 36,283.00 8 \n36,283.01 39,116.00 9 \n39,116.01 41,949.00 10 \n ",
+      "tables": [
+        [
+          [
+            "Total claim amount ($) from",
+            "Total claim amount ($) to",
+            "Claim code"
+          ],
+          [
+            "No claim amount",
+            "No claim amount",
+            "0"
+          ],
+          [
+            "0.00",
+            "16,452.00",
+            "1"
+          ],
+          [
+            "16,452.01",
+            "19,285.00",
+            "2"
+          ],
+          [
+            "19,285.01",
+            "22,118.00",
+            "3"
+          ],
+          [
+            "22,118.01",
+            "24,951.00",
+            "4"
+          ],
+          [
+            "24,951.01",
+            "27,784.00",
+            "5"
+          ],
+          [
+            "27,784.01",
+            "30,617.00",
+            "6"
+          ],
+          [
+            "30,617.01",
+            "33,450.00",
+            "7"
+          ],
+          [
+            "33,450.01",
+            "36,283.00",
+            "8"
+          ],
+          [
+            "36,283.01",
+            "39,116.00",
+            "9"
+          ],
+          [
+            "39,116.01",
+            "41,949.00",
+            "10"
+          ]
+        ]
+      ],
+      "table_extraction_strategy": "default",
+      "warnings": [],
+      "review_status": "pending"
+    },
+    {
+      "pdf_page_number": 10,
+      "text": "  \nA-9 \n \nChart 4 – 2026 Ontario claim codes \nTotal claim amount ($) from Total claim amount ($) to Claim code \nNo claim amount No claim amount 0 \n0.00 12,989.00 1 \n12,989.01 15,787.00 2 \n15,787.01 18,585.00 3 \n18,585.01 21,383.00 4 \n21,383.01 24,181.00 5 \n24,181.01 26,979.00 6 \n26,979.01 29,777.00 7 \n29,777.01 32,575.00 8 \n32,575.01 35,373.00 9 \n35,373.01 38,171.00 10 \nForm TD1X, Statement of Commission Income and Expenses for \nPayroll Tax Deductions \nIf your employees want you to adjust their tax deductions to allow for commission expenses, they have to complete Form TD1X, \nStatement of Commission Income and Expenses for Payroll Tax Deductions. \nYou deduct tax from your employees’ commission pay using the “Total claim amount” on their TD1 forms in the following situations: \n◼ if your employees do not complete a Form TD1X or \n◼ if they tell you in writing that they want to cancel a previously completed Form TD1X \nHow to use the tables in this guide \nUse the tables in this guide to determine the CPP contributions, EI premiums, federal tax, and provincial tax that you will deduct from \nyour employees’ remuneration. \nCanada Pension Plan tables  \nSection B is split into two tables: Section B(i) – CPP contributions table and Section B(ii) – Second additional CPP contributions table. \nSection B(ii) provides the CPP2 contributions that you are required to withhold from your employee’s pay. CPP2 contributions are \nrequired for pensionable earnings between the YMPE ($74,600) and the YAMPE ($85,000). \nUse the following steps to determine the CPP contributions and if applicable, CPP2 contributions. \nStep 1. Use Section B(i) to determine CPP contributions. If the maximum CPP contribution of $4,230.45 is reached, proceed to Step 2.  \nNote  \nIn the pay period where maximum CPP contribution is reached, you may be required to use both Section B(i) and Section B(ii). \nStep 2. Once the maximum CPP contribution is reached, use the following formula to determine the “Pay” range for Section B(ii) to \ndetermine the first CPP2 contribution:  \nPay subject to CPP2 contributions = PIYTD + PI – (YMPE × (PM/12)) \nIf the result is positive, proceed to step 3, otherwise repeat step 2 in the subsequent pay period. \nPIYTD = Year-to-date pensionable income. This does not include pensionable income for the current pay period.  \nPI   =  Pensionable income for the current pay period. \nYMPE  = Year’s maximum pensionable earnings. \nPM            =  Number of months during which CPP and/or QPP contributions are required to be deducted. Visit \ncanada.ca/payroll for more details. \n ",
+      "tables": [
+        [
+          [
+            "Total claim amount ($) from",
+            "Total claim amount ($) to",
+            "Claim code"
+          ],
+          [
+            "No claim amount",
+            "No claim amount",
+            "0"
+          ],
+          [
+            "0.00",
+            "12,989.00",
+            "1"
+          ],
+          [
+            "12,989.01",
+            "15,787.00",
+            "2"
+          ],
+          [
+            "15,787.01",
+            "18,585.00",
+            "3"
+          ],
+          [
+            "18,585.01",
+            "21,383.00",
+            "4"
+          ],
+          [
+            "21,383.01",
+            "24,181.00",
+            "5"
+          ],
+          [
+            "24,181.01",
+            "26,979.00",
+            "6"
+          ],
+          [
+            "26,979.01",
+            "29,777.00",
+            "7"
+          ],
+          [
+            "29,777.01",
+            "32,575.00",
+            "8"
+          ],
+          [
+            "32,575.01",
+            "35,373.00",
+            "9"
+          ],
+          [
+            "35,373.01",
+            "38,171.00",
+            "10"
+          ]
+        ],
+        [
+          [
+            "Use the tables in this guide to determine the CPP contributions, EI premiums, federal tax, and provincial tax that you will deduct from"
+          ],
+          [
+            "your employees’ remuneration."
+          ]
+        ]
+      ],
+      "table_extraction_strategy": "default",
+      "warnings": [],
+      "review_status": "pending"
+    },
+    {
+      "pdf_page_number": 11,
+      "text": "  \nA-10 \n \nStep 3. Use Section B(ii) to determine the remaining CPP2 contributions, until the maximum CPP2 contribution is reached. The \nmaximum CPP2 contribution for 2026 is $416.00. For the last payment made in the year, proceed to Step 4 if the annual pensionable \nearnings is between YMPE and YAMPE.  \nStep 4. Section B(ii) uses $0.05 increments for the CPP2 contributions. As a result, for employees with an annual pensionable earnings \nbetween YMPE and YAMPE, it may be required to calculate the CPP2 contributions for the last payment in the year. This is to avoid \nCPP2 under or over-contributions. \n \nTo calculate the CPP2 contributions for the last pay period in the year: \n \nCalculate the employee’s annual CPP contribution: \n(Annual pensionable earnings – Year’s Maximum Pensionable Earnings) × 4% \nCalculate the remaining contribution for the year: \nAnnual CPP contribution – Year-to-date CPP contributions \nExample of an employee earning more than the YAMPE \nAn employee is earning $3,500.00 per pay period. There are 26 pay periods in the year since this employee is getting paid biweekly. The \nemployee’s maximum CPP and CPP2 contributions are $4,230.45 and $416.00 respectively. \n \nPay period Section B(i) Pay subject to CPP \ncontributions \nSection B(ii) Pay subject to CPP2 \ncontributions \n1-21 ✓ $3,500.00  - \n22 ✓ Until maximum is reached ✓ $2,400.00* \n23  - ✓ $3,500.00 \n24-25  - ✓ Until maximum is reached \n* = PIYTD + PI – (YMPE × (PM/12)) \n = $73,500.00 + $3,500.00 – $74,600.00  \n = $2,400.00 \nSection B(i) – CPP contributions table  \nThe annual basic exemption is built into the CPP tables.  \n◼ Find the pages in Section B(i) that correspond to your pay period \n◼ To find the range that includes your employee’s  pensionable earnings for the pay period (this includes any taxable benefits), look \ndown the “Pay” column \n◼ In the column next to the “Pay” column, you will find the CPP contribution that you should withhold from your employee’s pay \nSection B(ii) – Second additional CPP contributions table \n◼ To find the range that includes your employee’s pensionable earnings for the pay period (this includes any taxable benefits), look \ndown the “Pay” column. Consult the steps in “Canada Pension Plan Tables” section above for more information \n◼ In the column next to the “Pay” column, you will find the CPP2 contribution that you should withhold from your employee’s pay \nSection C – EI premiums table \n◼ To find the range that includes your employee’s insurable earnings for the pay period, look down the “Insurable earnings” column. \nWhen you use the table in this guide to determine the EI premiums, look up the insurable earnings for the period not the gross \nremuneration \n◼ In the column next to the “Insurable earnings” column, you will find the EI premium that you should withhold from your employ ee’s \npay \n  ",
+      "tables": [
+        [
+          [
+            "Step 4. Section B(ii) uses $0.05 increments for the CPP2 contributions. As a result, for employees with an annual pensionable earnings"
+          ],
+          [
+            "between YMPE and YAMPE, it may be required to calculate the CPP2 contributions for the last payment in the year. This is to avoid"
+          ],
+          [
+            "CPP2 under or over-contributions."
+          ]
+        ],
+        [
+          [
+            "Pay period",
+            "Section B(i)",
+            "Pay subject to CPP\ncontributions",
+            "Section B(ii)",
+            "Pay subject to CPP2\ncontributions"
+          ],
+          [
+            "1-21",
+            "✓",
+            "$3,500.00",
+            "",
+            "-"
+          ],
+          [
+            "22",
+            "✓",
+            "Until maximum is reached",
+            "✓",
+            "$2,400.00*"
+          ],
+          [
+            "23",
+            "",
+            "-",
+            "✓",
+            "$3,500.00"
+          ],
+          [
+            "24-25",
+            "",
+            "-",
+            "✓",
+            "Until maximum is reached"
+          ]
+        ],
+        [
+          [
+            "To find the range that includes your employee’s pensionable earnings for the pay period (this includes any taxable benefits), look"
+          ],
+          [
+            "down the “Pay” column"
+          ]
+        ],
+        [
+          [
+            "To find the range that includes your employee’s pensionable earnings for the pay period (this includes any taxable benefits), look"
+          ],
+          [
+            "down the “Pay” column. Consult the steps in “Canada Pension Plan Tables” section above for more information"
+          ]
+        ],
+        [
+          [
+            "To find the range that includes your employee’s insurable earnings for the pay period, look down the “Insurable earnings” column."
+          ],
+          [
+            "When you use the table in this guide to determine the EI premiums, look up the insurable earnings for the period not the gross"
+          ],
+          [
+            "remuneration"
+          ]
+        ],
+        [
+          [
+            "In the column next to the “Insurable earnings” column, you will find the EI premium that you should withhold from your employee’s"
+          ],
+          [
+            "pay"
+          ]
+        ]
+      ],
+      "table_extraction_strategy": "default",
+      "warnings": [],
+      "review_status": "pending"
+    },
+    {
+      "pdf_page_number": 12,
+      "text": "  \nA-11 \n \nTax deductions tables \nIf you are using the income tax tables in this guide to determine your employees’ and pensioners’ total tax deductions, you have to look \nup the amounts in the federal tax table and the provincial tax table. \nTo determine the total tax you deduct for the pay period, you must add the federal and provincial tax amounts. \nEven if the period of employment for which you pay a salary is less than a full pay period, you must continue to use the tax deductions \ntable that corresponds to your regular pay period. \nSection D – Federal tax deduction table \n◼ Find the pages in Section D that correspond to your pay period \n◼ To find the range that corresponds to your employee’s taxable income (this includes any taxable benefits), look down the “Pay” \ncolumn \n◼ In the row under the applicable claim code, you will find the amount of federal tax that you should withhold from your employee’s \npay (for more information, see the section called “Claim codes” and Chart 3) \nSection E – Provincial tax deduction table \n◼ Find the pages in Section E that correspond to your pay period \n◼ To find the range that includes your employee’s taxable income (this includes any taxable benefits), look down the “Pay” column \n◼ In the row under the applicable claim code, you will find the amount of provincial tax that you should withhold from your employee’s \npay (for more information, see the section called “Claim codes” and Chart 4) \nExample \nYou are an employer in Ontario. Sara, your employee, earns $615 a week in 2026. She has a federal claim code 1 and a provincial claim \ncode 1. \nTo determine Sara’s federal tax deductions, you look at the weekly federal tax deductions table and find the range for her weekly salary, \nwhich is 614-618. The federal tax deductions for $615 weekly under claim code 1 is $31.95. \nTo determine Sara’s provincial tax deductions, you use the weekly provincial tax deductions table. In the Ontario tax deductions table, \nthe provincial tax deduction for $615 weekly under claim code 1 is $22.05. \nSara’s total tax deduction is $54.00 ($31.95 + $22.05). This amount of taxes will be included in your remittance to us. \nAdditional information about payroll deductions \nDeducting tax from income not subject to CPP contributions or EI premiums \nWe have built the tax credits and tax deductions for CPP contributions and EI premiums into the federal and provincial tax deductions \ntables in this guide. However, certain types of income, such as pension income, are not subject to CPP contributions and EI premiums. \nAs a result, you will have to adjust the amount of federal and provincial income tax you are deducting. \nTo determine the amount of tax to deduct from income not subject to CPP contributions or EI premiums, use the Payroll Deducti ons \nOnline Calculator, available at canada.ca/pdoc. On the “Salary calculation” and/or on the “Commission calculation” screen, go to \nStep 3 and select the “CPP exempt” and/or “EI exempt” option before clicking on the “Calculate” button. \nStep-by-step calculation of tax deductions  \nYou can use the following step-by-step calculations to calculate the tax deductions for your employee or pensioner.  \nThe example shows you how to determine the amount of tax to deduct from all income. \nHowever, if you design your own payroll program or spreadsheets to calculate tax deductions, do not use either of these calculations. \nInstead, see Guide T4127, Payroll Deductions Formulas. \n  ",
+      "tables": [
+        [
+          [
+            "Even if the period of employment for which you pay a salary is less than a full pay period, you must continue to use the tax deductions"
+          ],
+          [
+            "table that corresponds to your regular pay period."
+          ]
+        ],
+        [
+          [
+            "Find the pages in Section D that correspond to your pay period"
+          ],
+          [
+            "To find the range that corresponds to your employee’s taxable income (this includes any taxable benefits), look down the “Pay”"
+          ],
+          [
+            "column"
+          ]
+        ],
+        [
+          [
+            "In the row under the applicable claim code, you will find the amount of federal tax that you should withhold from your employee’s"
+          ],
+          [
+            "pay (for more information, see the section called “Claim codes” and Chart 3)"
+          ]
+        ],
+        [
+          [
+            "Find the pages in Section E that correspond to your pay period"
+          ],
+          [
+            "To find the range that includes your employee’s taxable income (this includes any taxable benefits), look down the “Pay” column"
+          ],
+          [
+            "In the row under the applicable claim code, you will find the amount of provincial tax that you should withhold from your employee’s"
+          ],
+          [
+            "pay (for more information, see the section called “Claim codes” and Chart 4)"
+          ]
+        ]
+      ],
+      "table_extraction_strategy": "default",
+      "warnings": [],
+      "review_status": "pending"
+    },
+    {
+      "pdf_page_number": 13,
+      "text": "  \nA-12 \n \nExample – Annual Pensionable Income Below YMPE \nThis example applies to a person who earns $1,300 weekly and contributes $80 to a registered retirement savings plan (RRSP). This \nperson claims the basic personal amount. The CPP contribution is $73.35 and the EI premium is $21.19 for this pay period.  \nCPP contributions = 0.0595 × ($1,300 – ($3,500/52)) = $73.35 \nEI premiums = 0.0163 × $1,300 = $21.19 \nCalculate annual taxable income \nDescription Sub-amounts Amounts \n(1) Gross remuneration for the pay period (weekly)   $ 1,300.00 \n(2) Minus   \n◼ CPP additional contribution ($73.35 × (0.0100/0.0595))   12.33  \n◼ the RRSP contributions*   80.00 \n \n   \n – $ 92.33 \n* This amount has to be deducted at source.   \n(3) Net remuneration for the pay period (line 1 minus line 2)   $ 1,207.67 \n(4) Annual net income ($1,207.67 × 52 weeks)   $ 62,798.84 \n(5) Minus the annual deduction for living in a prescribed zone, reported on Form TD1     –  0.00 \n(6) Annual taxable income (line 4 minus line 5)   $ 62,798.84 \nCalculate federal tax \nDescription Sub-amounts Amounts \n(7) Basic federal tax: \n         Multiply the amount on line 6 by the federal tax rate (R) based on Chart 1 \n $ 62,798.84 \n×  0.205 \n    \n   $ 12,873.76 \n(8) Minus the federal constant (K) based on the annual taxable income on line 6  \n         (go to Chart 1) \n    –  3,804.00 \n(9) Federal tax (line 7 minus line 8)   $ 9,069.76 \n(10) Minus the federal tax credits:   \n◼ the total of personal tax credit amounts reported on the federal Form TD1  $ 16,452.00  \n◼ the CPP base contributions (($73.35 × (0.0495/0.0595)) × 52 weeks)*   3,173.04  \n◼ the EI premiums ($21.19 × 52 weeks)*   1,101.88  \n◼ the Canada employment amount (annual maximum $1,501.00)   1,501.00  \nTotal  $ 22,227.92  \n* Note \nWhen the maximum CPP contributions or EI premiums for the year is reached, use the \nmaximum amount for later calculations \n  \n(11) Multiply the total on line 10 by the lowest federal tax rate for the year     ×  0.14  \n(12) Total federal tax credits     – $ 3,111.91 \n(13) Total federal tax payable for the year (line 9 minus line 12)   $ 5,957.85 \n \n  ",
+      "tables": [],
+      "table_extraction_strategy": "default",
+      "warnings": [],
+      "review_status": "pending"
+    },
+    {
+      "pdf_page_number": 14,
+      "text": "  \nA-13 \n \nCalculate provincial tax \nDescription Sub-amounts Amounts \n(14) Basic provincial tax for Ontario: \nMultiply the amount on line 6 by the provincial tax rate (V) based on Chart 2 \n $ 62,798.84 \n   ×  0.0915 \n \n  \n           $ 5,746.09 \n(15) Minus the provincial constant (KP) based on the annual taxable income on line 6 \n(go to Chart 2) \n    –  2,210.00 \n(16) Provincial tax on income for Ontario (line 14 minus line 15)   $ 3,536.09 \n(17) Minus the provincial tax credits:   \n◼ the total of personal tax credit amounts reported on Form TD1ON  $ 12,989.00  \n◼ the CPP base contributions (($73.35 × (0.0495/0.0595)) × 52 weeks)*   3,173.04  \n◼ the EI premiums ($21.19 × 52 weeks)*   1,101.88  \nTotal  $ 17,263.92  \n* Note   \nWhen the maximum CPP contributions or EI premiums for the year is reached, \nuse the maximum amount for later calculations \n  \n(18) Multiply the total on line 17 by the lowest provincial tax rate for the year    ×  0.0505  \n(19) Total provincial tax credits     – $ 871.83 \n(20) Basic provincial tax (line 16 minus line 19)   $ 2,664.26 \n(21) Add provincial surtax   \n◼ Where line 20 is less than or equal to $5,818, the surtax is $0  $ 0.00  \n◼ Where line 20 is greater than $5,818 and less than or equal to $7,446, the surtax is 20% \nof line 20 that is more than $5,818 \n \n  0.00 \n \n◼ Where line 20 is greater than $7,446, the surtax is 20% of line 20 that is more than \n$5,818 plus 36% of line 20 that is more than $7,446                   0.00 \n \nProvincial surtax     +  0.00 \n(22) Total provincial tax including surtax   $ 2,664.26 \n(23) Add Ontario health premium (See page A-6 for more details)   \nDetermine the premium based on the annual taxable income (line 6)   \nThe premium is whichever amount is less:   \n(i) $600; or   \n(ii) $450 plus 25% of taxable income greater than $48,000 and less than \nor equal to $72,000: \n  \n   +  600.00 \n(24) Provincial tax payable before reduction (line 22 plus line 23)   $ 3,264.26 \n(25) Minus the provincial tax reduction: \nThe lesser of: \n  \n(i)  the total provincial tax payable on line 22; and  $ 2,664.26  \n(ii) twice the applicable personal amounts \nminus the amount on line (i) above.  \nIf the result is negative, substitute $0. \n $ 600.00 \n   –  2,664.26 \n $ 0.00 \n \n \n   –  0.00 \n(26) Total provincial tax payable for the year (line 24 minus line 25)   $ 3,264.26 \nCalculate total tax and the tax deduction for the pay period \nDescription Sub-amounts Amounts \n(27) Total federal and provincial tax deductions for the year (line 13 plus line 26) \nIf the result is negative, substitute $0. \n  \n $ 9,222.11 \n(28) Tax deduction for the pay period: \nDivide the amount on line 27 by the number of pay periods in the year (52) \n  \n $ 177.35 \n \n  ",
+      "tables": [],
+      "table_extraction_strategy": "default",
+      "warnings": [],
+      "review_status": "pending"
+    },
+    {
+      "pdf_page_number": 15,
+      "text": "  \nA-14 \n \nExample – Pensionable Income Above YMPE \nThis example applies to a person who earns $1,600.00 weekly and claims the basic personal amount. The maximum CPP contribution of \n$4,230.45 and the maximum EI premiums of $1,123.07 have been reached. In addition, this person has started contributing to CPP2 and \nhas contributed $24.00 year-to-date. The year-to-date pensionable income is $75,200. The CPP2 contribution for this pay period is:  \nCPP2 contributions - The lesser of:  \n(i) ($416.00 × (PM/12)) – D2 = ($416.00 × (PM/12)) – $24.00 = $392.00 \n(ii) (PIYTD + PI – W) × 0.04 = ($75,200 + $1,600 – $75,200) × 0.04 = $64.00 \nWhere W = The greater of  \n(i) PIYTD = $75,200 \n(ii) YMPE × PM/12 = $74,600 \nCalculate annual taxable income \nDescription Sub-amounts Amounts \n(1) Gross remuneration for the pay period (weekly)   $ 1,600.00 \n(2) Minus   \n◼ CPP2 contribution   $     64.00 – $ 64.00 \n(3) Net remuneration for the pay period (line 1 minus line 2)   $ 1,536.00 \n(4) Annual net income ($1,536.00 × 52 weeks)   $ 79,872.00 \n(5) Minus the annual deduction for living in a prescribed zone, reported on Form TD1     –  0.00 \n(6) Annual taxable income (line 4 minus line 5)   $ 79,872.00 \nCalculate federal tax \nDescription Sub-amounts Amounts \n(7) Basic federal tax: \n         Multiply the amount on line 6 by the federal tax rate (R) based on Chart 1 \n         $  79,872.00 \n ×  0.205  \n \n   $ 16,373.76 \n(8) Minus the federal constant (K) based on the annual taxable income on line 6  \n(go to Chart 1) \n \n   \n   –  3,804.00 \n(9) Federal tax (line 7 minus line 8)   $ 12,569.76 \n(10) Minus the federal tax credits:   \n◼ the total of personal tax credit amounts reported on the federal Form TD1  $ 16,452.00  \n◼ the CPP base contributions for the pay period multiplied by the number \nof pay periods in the year (annual maximum $3,519.45)* \n \n        3,519.45 \n \n◼ the EI premiums for the pay period multiplied by the number \nof pay periods in the year (annual maximum $1,123.07)*  \n        \n   1,123.07  \n \n◼ the Canada employment amount (annual maximum $1,501.00)   1,501.00  \nTotal  $ 22,595.52  \n*Note \nWhen the maximum CPP contributions or EI premiums for the year is reached, use the \nmaximum amount for later calculations \n  \n(11) Multiply the total on line 10 by the lowest federal tax rate for the year     ×  0.14  \n(12) Total federal tax credits       –  3,163.37 \n(13) Total federal tax payable for the year (line 9 minus line 12)   $ 9,406.39 ",
+      "tables": [],
+      "table_extraction_strategy": "default",
+      "warnings": [],
+      "review_status": "pending"
+    },
+    {
+      "pdf_page_number": 16,
+      "text": "  \nA-15 \n \nCalculate provincial tax \nDescription Sub-amounts Amounts \n(14) Basic provincial tax for Ontario: \nMultiply the amount on line 6 by the provincial tax rate (V) based on Chart 2 \n         $  79,872.00 \n ×         0.0915 \n \n \n   $ 7,308.29 \n(15) Minus the provincial constant (KP) based on the annual taxable income on line 6  \n(go to Chart 2) \n    –           2,210.00 \n(16) Provincial tax on income for Ontario (line 14 minus line 15)           $     5,098.29 \n(17) Minus the provincial tax credits:   \n◼ the total of personal tax credit amounts reported on Form TD1ON  $ 12,989.00  \n◼ the CPP base contributions for the pay period multiplied by the number \nof pay periods in the year (annual maximum $3,519.45)* \n        \n  3,519.45 \n \n◼ the EI premiums for the pay period multiplied by the number of pay periods in the year \n(annual maximum $1,123.07)* \n \n     1,123.07  \n \nTotal  $ 17,631.52  \n* Note \nWhen the maximum CPP contributions or EI premiums for the year is reached, use the \nmaximum amount for later calculations \n  \n(18) Multiply the total on line 17 by the lowest provincial tax rate for the year    ×  0.0505  \n(19) Total provincial tax credits       – $ 890.39 \n(20) Total provincial tax payable for the year (line 16 minus line 19)    $ 4,207.90 \n(21) Add provincial surtax   \n◼ Where line 20 is less than or equal to $5,818, the surtax is $0  $ 0.00  \n◼ Where line 20 is greater than $5,818 and less than or equal to $7,446, the surtax is 20% \nof line 20 that is more than $5,818 \n \n  0.00 \n \n◼ Where line 20 is greater than $7,446, the surtax is 20% of line 20 that is more than \n$5,818 plus 36% of line 20 that is more than $7,446                 0.00 \n \nProvincial surtax     +  0.00 \n(22) Total provincial tax including surtax   $ 4,207.90 \n(23) Add Ontario health premium (See page A-6 for more details)   \nDetermine the premium based on the annual taxable income (line 6)    \nThe premium is whichever amount is less:   \n(i) $750; or   \n(ii) $600 plus 25% of taxable income greater than $72,000 and less than or equal to $200,000:  +  750.00 \n(24) Provincial tax payable before reduction (line 22 plus line 23)   $ 4,957.90 \n(25) Minus the provincial tax reduction: \nThe lesser of: \n  \n(i)  the total provincial tax payable on line 22; and  $ 4,207.90  \n(ii) twice the applicable personal amounts \nminus the amount on line (i) above.  \nIf the result is negative, substitute $0. \n $ 600.00 \n   –  4,207.90 \n $ 0.00 \n \n \n   –  0.00 \n(26) Total provincial tax payable for the year (line 24 minus line 25)   $ 4,957.90 \nCalculate total tax and the tax deduction for the pay period \nDescription Sub-amounts Amounts \n(27) Total federal and provincial tax deductions for the year (line 13 plus line 26) \nIf the result is negative, substitute $0. \n  \n $ 14,364.29  \n(28) Tax deduction for the pay period: \nDivide the amount on line 27 by the number of pay periods in the year (52) \n  \n $ 276.24  \n \n ",
+      "tables": [],
+      "table_extraction_strategy": "default",
+      "warnings": [],
+      "review_status": "pending"
+    }
+  ]
+}

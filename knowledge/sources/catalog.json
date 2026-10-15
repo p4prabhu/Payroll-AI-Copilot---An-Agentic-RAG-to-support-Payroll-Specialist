@@ -1,0 +1,642 @@
+{
+  "schema_version": 1,
+  "created_on": "2026-10-14",
+  "path_base": "catalog_directory",
+  "purpose": "Track official PDF provenance and applicability for payroll retrieval.",
+  "notes": [
+    "Paths are relative to this catalogue and use portable forward slashes.",
+    "null means unknown or not established; it must not be interpreted as unrestricted applicability.",
+    "Source links and basic PDF integrity were checked; content extraction and applicability review remain pending.",
+    "A document may contain passages with different jurisdictions and effective dates. Add passage-level metadata during ingestion.",
+    "This catalogue does not create embeddings, configure a retriever, or verify payroll calculations."
+  ],
+  "coverage_gaps": [
+    {
+      "topic": "Ontario employment standards",
+      "status": "not_downloaded",
+      "source_page_url": "https://www.ontario.ca/document/your-guide-employment-standards-act-0",
+      "reason": "A complete current official PDF has not been verified. Web ingestion is still needed."
+    },
+    {
+      "topic": "Company policies and payroll calendar",
+      "status": "not_created",
+      "reason": "Company-specific policies, dates, and cutoffs require fictional company documents and database records."
+    },
+    {
+      "topic": "Employee-specific questions",
+      "status": "not_created",
+      "reason": "Fictional employee records and payroll history require a separate database."
+    }
+  ],
+  "documents": [
+    {
+      "document_id": "rc4120-25e",
+      "file_path": "cra/rc4120-25e.pdf",
+      "title": "RC4120 Employers Guide - Filing the T4 Slip and Summary - 2025 edition",
+      "publisher": "Canada Revenue Agency",
+      "source_url": "https://www.canada.ca/content/dam/cra-arc/formspubs/pub/rc4120/rc4120-25e.pdf",
+      "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/rc4120.html",
+      "source_link_checked_on": "2026-10-14",
+      "edition_year": 2025,
+      "effective_from": null,
+      "effective_to": null,
+      "jurisdictions": [
+        "Canada_multiple_jurisdictions"
+      ],
+      "topics": [
+        "T4",
+        "annual_reporting",
+        "reporting_boxes",
+        "corrections"
+      ],
+      "document_type": "guide",
+      "pay_periods_per_year": null,
+      "needs_update_review": true,
+      "content_review_status": "pending",
+      "ingestion_status": "not_started",
+      "size_bytes": 344241,
+      "sha256": "29c235d92dcac1a3cf789dcc22911b51e4d93d480f9c806a003a2e3452d35f7c",
+      "notes": [
+        "The checked CRA publication page links this 2025 PDF.",
+        "Do not treat 2025 rates, deadlines, or reporting requirements as verified for 2026. Check current guidance and applicable updates."
+      ]
+    },
+    {
+      "document_id": "t4001-25e",
+      "file_path": "cra/t4001-25e.pdf",
+      "title": "T4001 Employers Guide - Payroll Deductions and Remittances - 2025 edition",
+      "publisher": "Canada Revenue Agency",
+      "source_url": "https://www.canada.ca/content/dam/cra-arc/formspubs/pub/t4001/t4001-25e.pdf",
+      "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/t4001.html",
+      "source_link_checked_on": "2026-10-14",
+      "edition_year": 2025,
+      "effective_from": null,
+      "effective_to": null,
+      "jurisdictions": [
+        "Canada_multiple_jurisdictions"
+      ],
+      "topics": [
+        "payroll_deductions",
+        "remittances",
+        "bonuses",
+        "employee_eligibility"
+      ],
+      "document_type": "guide",
+      "pay_periods_per_year": null,
+      "needs_update_review": true,
+      "content_review_status": "pending",
+      "ingestion_status": "not_started",
+      "size_bytes": 464690,
+      "sha256": "b8a50cfd2f7b8515fb6aba863701764641f6ace1b3d4b3a3ed35fe63d1e60b4f",
+      "notes": [
+        "The checked CRA publication page links this 2025 PDF.",
+        "Do not treat 2025 rates, deadlines, or reporting requirements as verified for 2026. Check current guidance and applicable updates."
+      ]
+    },
+    {
+      "document_id": "t4032-on-1-26e",
+      "file_path": "cra/t4032-on-1-26e.pdf",
+      "title": "T4032 Ontario - General information - January 2026",
+      "publisher": "Canada Revenue Agency",
+      "source_url": "https://www.canada.ca/content/dam/cra-arc/migration/cra-arc/tx/bsnss/tpcs/pyrll/t4032/2026/t4032-on-1-26e.pdf",
+      "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032on-jan.html",
+      "source_link_checked_on": "2026-10-14",
+      "edition_year": 2026,
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "jurisdictions": [
+        "Ontario"
+      ],
+      "topics": [
+        "CPP",
+        "CPP2",
+        "EI",
+        "federal_income_tax",
+        "Ontario_income_tax",
+        "TD1"
+      ],
+      "document_type": "guide",
+      "pay_periods_per_year": null,
+      "needs_update_review": false,
+      "content_review_status": "pending",
+      "ingestion_status": "not_started",
+      "size_bytes": 496744,
+      "sha256": "c29b582f1a576b9f98129f8879720930a98dabb04d0784fe7e90ec8bf8d49d0a",
+      "notes": [
+        "General-information section; detailed deduction tables are catalogued separately."
+      ]
+    },
+    {
+      "document_id": "t4032-on-12pp-26-eng",
+      "file_path": "cra/t4032-on-12pp-26-eng.pdf",
+      "title": "T4032 Federal and Ontario income-tax deduction tables - monthly - 2026",
+      "publisher": "Canada Revenue Agency",
+      "source_url": "https://www.canada.ca/content/dam/cra-arc/migration/cra-arc/tx/bsnss/tpcs/pyrll/t4032/2026/t4032-on-12pp-26-eng.pdf",
+      "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032on-jan.html",
+      "source_link_checked_on": "2026-10-14",
+      "edition_year": 2026,
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "jurisdictions": [
+        "Ontario"
+      ],
+      "topics": [
+        "federal_income_tax",
+        "Ontario_income_tax"
+      ],
+      "document_type": "deduction_table",
+      "pay_periods_per_year": 12,
+      "needs_update_review": false,
+      "content_review_status": "pending",
+      "ingestion_status": "not_started",
+      "size_bytes": 444229,
+      "sha256": "7d08f617f313b57ba20de496f35916a266864f741fc3a9d93d6357d2560bf032",
+      "notes": []
+    },
+    {
+      "document_id": "t4032-on-24pp-26-eng",
+      "file_path": "cra/t4032-on-24pp-26-eng.pdf",
+      "title": "T4032 Federal and Ontario income-tax deduction tables - semi-monthly - 2026",
+      "publisher": "Canada Revenue Agency",
+      "source_url": "https://www.canada.ca/content/dam/cra-arc/migration/cra-arc/tx/bsnss/tpcs/pyrll/t4032/2026/t4032-on-24pp-26-eng.pdf",
+      "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032on-jan.html",
+      "source_link_checked_on": "2026-10-14",
+      "edition_year": 2026,
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "jurisdictions": [
+        "Ontario"
+      ],
+      "topics": [
+        "federal_income_tax",
+        "Ontario_income_tax"
+      ],
+      "document_type": "deduction_table",
+      "pay_periods_per_year": 24,
+      "needs_update_review": false,
+      "content_review_status": "pending",
+      "ingestion_status": "not_started",
+      "size_bytes": 442284,
+      "sha256": "380e6544fec37b6d5f31884912624cf11dc537ca15518842923ffb2dfbd640bc",
+      "notes": []
+    },
+    {
+      "document_id": "t4032-on-26pp-26-eng",
+      "file_path": "cra/t4032-on-26pp-26-eng.pdf",
+      "title": "T4032 Federal and Ontario income-tax deduction tables - biweekly - 2026",
+      "publisher": "Canada Revenue Agency",
+      "source_url": "https://www.canada.ca/content/dam/cra-arc/migration/cra-arc/tx/bsnss/tpcs/pyrll/t4032/2026/t4032-on-26pp-26-eng.pdf",
+      "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032on-jan.html",
+      "source_link_checked_on": "2026-10-14",
+      "edition_year": 2026,
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "jurisdictions": [
+        "Ontario"
+      ],
+      "topics": [
+        "federal_income_tax",
+        "Ontario_income_tax"
+      ],
+      "document_type": "deduction_table",
+      "pay_periods_per_year": 26,
+      "needs_update_review": false,
+      "content_review_status": "pending",
+      "ingestion_status": "not_started",
+      "size_bytes": 442166,
+      "sha256": "c7d380815f370991212ac20639db5d95d7c9dc7641efe967d72c8969a38ec4f7",
+      "notes": []
+    },
+    {
+      "document_id": "t4032-on-52pp-26-eng",
+      "file_path": "cra/t4032-on-52pp-26-eng.pdf",
+      "title": "T4032 Federal and Ontario income-tax deduction tables - weekly - 2026",
+      "publisher": "Canada Revenue Agency",
+      "source_url": "https://www.canada.ca/content/dam/cra-arc/migration/cra-arc/tx/bsnss/tpcs/pyrll/t4032/2026/t4032-on-52pp-26-eng.pdf",
+      "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032on-jan.html",
+      "source_link_checked_on": "2026-10-14",
+      "edition_year": 2026,
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "jurisdictions": [
+        "Ontario"
+      ],
+      "topics": [
+        "federal_income_tax",
+        "Ontario_income_tax"
+      ],
+      "document_type": "deduction_table",
+      "pay_periods_per_year": 52,
+      "needs_update_review": false,
+      "content_review_status": "pending",
+      "ingestion_status": "not_started",
+      "size_bytes": 440409,
+      "sha256": "2c1d7af22ffbe616010b76b8f919df2057ea9ba4783b6468d2ef5663dc2d1a88",
+      "notes": []
+    },
+    {
+      "document_id": "t4032cpp-12pp-26eng",
+      "file_path": "cra/t4032cpp-12pp-26eng.pdf",
+      "title": "T4032 CPP contribution tables - monthly - 2026",
+      "publisher": "Canada Revenue Agency",
+      "source_url": "https://www.canada.ca/content/dam/cra-arc/migration/cra-arc/tx/bsnss/tpcs/pyrll/t4032/2026/t4032cpp-12pp-26eng.pdf",
+      "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032on-jan.html",
+      "source_link_checked_on": "2026-10-14",
+      "edition_year": 2026,
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "jurisdictions": [
+        "Canada_except_Quebec"
+      ],
+      "topics": [
+        "CPP"
+      ],
+      "document_type": "deduction_table",
+      "pay_periods_per_year": 12,
+      "needs_update_review": false,
+      "content_review_status": "pending",
+      "ingestion_status": "not_started",
+      "size_bytes": 4110881,
+      "sha256": "64a2d27c33f04e17d1a84ace1416d57530d60baf1c72fcc8cb0d69a3c44ebab6",
+      "notes": []
+    },
+    {
+      "document_id": "t4032cpp-24pp-26eng",
+      "file_path": "cra/t4032cpp-24pp-26eng.pdf",
+      "title": "T4032 CPP contribution tables - semi-monthly - 2026",
+      "publisher": "Canada Revenue Agency",
+      "source_url": "https://www.canada.ca/content/dam/cra-arc/migration/cra-arc/tx/bsnss/tpcs/pyrll/t4032/2026/t4032cpp-24pp-26eng.pdf",
+      "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032on-jan.html",
+      "source_link_checked_on": "2026-10-14",
+      "edition_year": 2026,
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "jurisdictions": [
+        "Canada_except_Quebec"
+      ],
+      "topics": [
+        "CPP"
+      ],
+      "document_type": "deduction_table",
+      "pay_periods_per_year": 24,
+      "needs_update_review": false,
+      "content_review_status": "pending",
+      "ingestion_status": "not_started",
+      "size_bytes": 2102922,
+      "sha256": "763ec0cf8d4e85b6cea48a4047eb43d5174dcd93342a0a013a84841262872fa5",
+      "notes": []
+    },
+    {
+      "document_id": "t4032cpp-26pp-26eng",
+      "file_path": "cra/t4032cpp-26pp-26eng.pdf",
+      "title": "T4032 CPP contribution tables - biweekly - 2026",
+      "publisher": "Canada Revenue Agency",
+      "source_url": "https://www.canada.ca/content/dam/cra-arc/migration/cra-arc/tx/bsnss/tpcs/pyrll/t4032/2026/t4032cpp-26pp-26eng.pdf",
+      "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032on-jan.html",
+      "source_link_checked_on": "2026-10-14",
+      "edition_year": 2026,
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "jurisdictions": [
+        "Canada_except_Quebec"
+      ],
+      "topics": [
+        "CPP"
+      ],
+      "document_type": "deduction_table",
+      "pay_periods_per_year": 26,
+      "needs_update_review": false,
+      "content_review_status": "pending",
+      "ingestion_status": "not_started",
+      "size_bytes": 1937087,
+      "sha256": "6d90e7dd4cddd450ecb1a4684a9889c7932a789e2d4181888678d5e89b53bd4a",
+      "notes": []
+    },
+    {
+      "document_id": "t4032cpp-52pp-26eng",
+      "file_path": "cra/t4032cpp-52pp-26eng.pdf",
+      "title": "T4032 CPP contribution tables - weekly - 2026",
+      "publisher": "Canada Revenue Agency",
+      "source_url": "https://www.canada.ca/content/dam/cra-arc/migration/cra-arc/tx/bsnss/tpcs/pyrll/t4032/2026/t4032cpp-52pp-26eng.pdf",
+      "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032on-jan.html",
+      "source_link_checked_on": "2026-10-14",
+      "edition_year": 2026,
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "jurisdictions": [
+        "Canada_except_Quebec"
+      ],
+      "topics": [
+        "CPP"
+      ],
+      "document_type": "deduction_table",
+      "pay_periods_per_year": 52,
+      "needs_update_review": false,
+      "content_review_status": "pending",
+      "ingestion_status": "not_started",
+      "size_bytes": 1019590,
+      "sha256": "df6eba8f95312cb6581c5295468cde21845a139b873be6e36c701070d43010a9",
+      "notes": []
+    },
+    {
+      "document_id": "t4032cpp2-rpc2-26eng",
+      "file_path": "cra/t4032cpp2-rpc2-26eng.pdf",
+      "title": "T4032 Second additional CPP contribution table - 2026",
+      "publisher": "Canada Revenue Agency",
+      "source_url": "https://www.canada.ca/content/dam/cra-arc/migration/cra-arc/tx/bsnss/tpcs/pyrll/t4032/2026/t4032cpp2-rpc2-26eng.pdf",
+      "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032on-jan.html",
+      "source_link_checked_on": "2026-10-14",
+      "edition_year": 2026,
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "jurisdictions": [
+        "Canada_except_Quebec"
+      ],
+      "topics": [
+        "CPP2"
+      ],
+      "document_type": "deduction_table",
+      "pay_periods_per_year": null,
+      "needs_update_review": false,
+      "content_review_status": "pending",
+      "ingestion_status": "not_started",
+      "size_bytes": 935892,
+      "sha256": "2b602987a54e1af5c43cbd6164c091c96be37f2e490a8c76dcaac0781aa24a2e",
+      "notes": []
+    },
+    {
+      "document_id": "t4032einoqc-26eng",
+      "file_path": "cra/t4032einoqc-26eng.pdf",
+      "title": "T4032 Employment Insurance premium table - Outside Quebec - 2026",
+      "publisher": "Canada Revenue Agency",
+      "source_url": "https://www.canada.ca/content/dam/cra-arc/migration/cra-arc/tx/bsnss/tpcs/pyrll/t4032/2026/t4032einoqc-26eng.pdf",
+      "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032on-jan.html",
+      "source_link_checked_on": "2026-10-14",
+      "edition_year": 2026,
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "jurisdictions": [
+        "Canada_except_Quebec"
+      ],
+      "topics": [
+        "EI"
+      ],
+      "document_type": "deduction_table",
+      "pay_periods_per_year": null,
+      "needs_update_review": false,
+      "content_review_status": "pending",
+      "ingestion_status": "not_started",
+      "size_bytes": 639538,
+      "sha256": "a12f39edcb51f09a886f30be92e0563d7b847e4c1500c61b4a7b70fde243ab7a",
+      "notes": []
+    },
+    {
+      "document_id": "t4127-01-26e",
+      "file_path": "cra/t4127-01-26e.pdf",
+      "title": "T4127 Payroll Deductions Formulas - 122nd edition - January 2026",
+      "publisher": "Canada Revenue Agency",
+      "source_url": "https://www.canada.ca/content/dam/cra-arc/formspubs/pub/t4127-jan/t4127-01-26e.pdf",
+      "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4127-payroll-deductions-formulas/t4127-jan.html",
+      "source_link_checked_on": "2026-10-14",
+      "edition_year": 2026,
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "jurisdictions": [
+        "Canada_multiple_jurisdictions"
+      ],
+      "topics": [
+        "CPP",
+        "CPP2",
+        "EI",
+        "income_tax",
+        "bonuses",
+        "retroactive_pay"
+      ],
+      "document_type": "guide",
+      "pay_periods_per_year": null,
+      "needs_update_review": false,
+      "content_review_status": "pending",
+      "ingestion_status": "not_started",
+      "size_bytes": 875134,
+      "sha256": "c715b8e6d33e0887119e0462b9a4cf8915370c56381932f1d7ba3a32385ddd8c",
+      "notes": [
+        "The July edition refers back to unchanged sections of this edition. Do not automatically exclude this baseline for payments after June 2026.",
+        "Select Ontario-applicable sections during retrieval."
+      ]
+    },
+    {
+      "document_id": "t4127-jul-26e",
+      "file_path": "cra/t4127-jul-26e.pdf",
+      "title": "T4127 Payroll Deductions Formulas - 123rd edition - July 2026",
+      "publisher": "Canada Revenue Agency",
+      "source_url": "https://www.canada.ca/content/dam/cra-arc/formspubs/pub/t4127-jul/t4127-jul-26e.pdf",
+      "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4127-payroll-deductions-formulas/t4127-jul.html",
+      "source_link_checked_on": "2026-10-14",
+      "edition_year": 2026,
+      "effective_from": "2026-07-01",
+      "effective_to": null,
+      "jurisdictions": [
+        "Canada_multiple_jurisdictions"
+      ],
+      "topics": [
+        "payroll_formula_updates",
+        "income_tax"
+      ],
+      "document_type": "guide",
+      "pay_periods_per_year": null,
+      "needs_update_review": false,
+      "content_review_status": "pending",
+      "ingestion_status": "not_started",
+      "size_bytes": 446106,
+      "sha256": "69d86d952cb14c786fdcc0321ec293f66db1529276ef310217b3ade47db25671",
+      "notes": [
+        "An update edition, not a standalone replacement for all January content.",
+        "The July guide reports no Ontario changes; unchanged sections refer to the January edition.",
+        "The guide also discusses future changes; classify passages by applicability before using them."
+      ]
+    },
+    {
+      "document_id": "t4130-25e",
+      "file_path": "cra/t4130-25e.pdf",
+      "title": "T4130 Employers Guide - Taxable Benefits and Allowances - 2025 edition",
+      "publisher": "Canada Revenue Agency",
+      "source_url": "https://www.canada.ca/content/dam/cra-arc/formspubs/pub/t4130/t4130-25e.pdf",
+      "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/t4130.html",
+      "source_link_checked_on": "2026-10-14",
+      "edition_year": 2025,
+      "effective_from": null,
+      "effective_to": null,
+      "jurisdictions": [
+        "Canada_multiple_jurisdictions"
+      ],
+      "topics": [
+        "taxable_benefits",
+        "allowances",
+        "benefit_reporting"
+      ],
+      "document_type": "guide",
+      "pay_periods_per_year": null,
+      "needs_update_review": true,
+      "content_review_status": "pending",
+      "ingestion_status": "not_started",
+      "size_bytes": 393315,
+      "sha256": "d9c2cdb24814ecf605110664d70f8be3680453ec67163d1ebd78e6e0fc0fef90",
+      "notes": [
+        "The checked CRA publication page links this 2025 PDF.",
+        "Do not treat 2025 rates, deadlines, or reporting requirements as verified for 2026. Check current guidance and applicable updates."
+      ]
+    },
+    {
+      "document_id": "td1-26e",
+      "file_path": "cra/td1-26e.pdf",
+      "title": "TD1 Personal Tax Credits Return - 2026",
+      "publisher": "Canada Revenue Agency",
+      "source_url": "https://www.canada.ca/content/dam/cra-arc/formspubs/pbg/td1/td1-26e.pdf",
+      "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/td1-personal-tax-credits-returns/td1-forms-pay-received-on-january-1-later/td1.html",
+      "source_link_checked_on": "2026-10-14",
+      "edition_year": 2026,
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "jurisdictions": [
+        "Canada_federal"
+      ],
+      "topics": [
+        "personal_tax_credits",
+        "TD1"
+      ],
+      "document_type": "form",
+      "pay_periods_per_year": null,
+      "needs_update_review": false,
+      "content_review_status": "pending",
+      "ingestion_status": "not_started",
+      "size_bytes": 71792,
+      "sha256": "261619f28cd17f4fdce2a284c368115949fe26673d6d2143a51af44c091846cc",
+      "notes": [
+        "Blank government form only; contains no fictional employee declarations.",
+        "Standard and fillable versions cover the same form. Deduplicate equivalent content during indexing."
+      ]
+    },
+    {
+      "document_id": "td1-fill-26e",
+      "file_path": "cra/td1-fill-26e.pdf",
+      "title": "TD1 Personal Tax Credits Return - 2026 - Fillable",
+      "publisher": "Canada Revenue Agency",
+      "source_url": "https://www.canada.ca/content/dam/cra-arc/formspubs/pbg/td1/td1-fill-26e.pdf",
+      "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/td1-personal-tax-credits-returns/td1-forms-pay-received-on-january-1-later/td1.html",
+      "source_link_checked_on": "2026-10-14",
+      "edition_year": 2026,
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "jurisdictions": [
+        "Canada_federal"
+      ],
+      "topics": [
+        "personal_tax_credits",
+        "TD1"
+      ],
+      "document_type": "fillable_form",
+      "pay_periods_per_year": null,
+      "needs_update_review": false,
+      "content_review_status": "pending",
+      "ingestion_status": "not_started",
+      "size_bytes": 234064,
+      "sha256": "4792ecda7b50345d299eeeccd970e0d196103a00c0382cc4dc9b550b2539f18d",
+      "notes": [
+        "Blank government form only; contains no fictional employee declarations.",
+        "Standard and fillable versions cover the same form. Deduplicate equivalent content during indexing."
+      ]
+    },
+    {
+      "document_id": "td1on-26e",
+      "file_path": "cra/td1on-26e.pdf",
+      "title": "TD1ON Personal Tax Credits Return - 2026",
+      "publisher": "Canada Revenue Agency",
+      "source_url": "https://www.canada.ca/content/dam/cra-arc/formspubs/pbg/td1on/td1on-26e.pdf",
+      "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/td1-personal-tax-credits-returns/td1-forms-pay-received-on-january-1-later/td1on.html",
+      "source_link_checked_on": "2026-10-14",
+      "edition_year": 2026,
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "jurisdictions": [
+        "Ontario"
+      ],
+      "topics": [
+        "personal_tax_credits",
+        "TD1ON"
+      ],
+      "document_type": "form",
+      "pay_periods_per_year": null,
+      "needs_update_review": false,
+      "content_review_status": "pending",
+      "ingestion_status": "not_started",
+      "size_bytes": 60592,
+      "sha256": "98ccd2248e946bc4122885134a781c6c7d60d68f854b2f4c5878082424ac33f1",
+      "notes": [
+        "Blank government form only; contains no fictional employee declarations.",
+        "Standard and fillable versions cover the same form. Deduplicate equivalent content during indexing."
+      ]
+    },
+    {
+      "document_id": "td1on-fill-26e",
+      "file_path": "cra/td1on-fill-26e.pdf",
+      "title": "TD1ON Personal Tax Credits Return - 2026 - Fillable",
+      "publisher": "Canada Revenue Agency",
+      "source_url": "https://www.canada.ca/content/dam/cra-arc/formspubs/pbg/td1on/td1on-fill-26e.pdf",
+      "source_page_url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/td1-personal-tax-credits-returns/td1-forms-pay-received-on-january-1-later/td1on.html",
+      "source_link_checked_on": "2026-10-14",
+      "edition_year": 2026,
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "jurisdictions": [
+        "Ontario"
+      ],
+      "topics": [
+        "personal_tax_credits",
+        "TD1ON"
+      ],
+      "document_type": "fillable_form",
+      "pay_periods_per_year": null,
+      "needs_update_review": false,
+      "content_review_status": "pending",
+      "ingestion_status": "not_started",
+      "size_bytes": 196346,
+      "sha256": "070bf538bebcc91140b52890828a7b17e48c0887fd694e948f69136bd4a27e7b",
+      "notes": [
+        "Blank government form only; contains no fictional employee declarations.",
+        "Standard and fillable versions cover the same form. Deduplicate equivalent content during indexing."
+      ]
+    },
+    {
+      "document_id": "3106-roe-web-layout-en",
+      "file_path": "esdc/3106-roe-web-layout-en.pdf",
+      "title": "How to Complete the Record of Employment Form",
+      "publisher": "Employment and Social Development Canada / Service Canada",
+      "source_url": "https://www.canada.ca/content/dam/canada/employment-social-development/migration/images/assets/portfolio/docs/en/reports/ei/roe_guide/pdf/3106-roe-web-layout-en.pdf",
+      "source_page_url": "https://www.canada.ca/en/employment-social-development/programs/ei/ei-list/reports/roe-guide.html",
+      "source_link_checked_on": "2026-10-14",
+      "edition_year": null,
+      "effective_from": null,
+      "effective_to": null,
+      "jurisdictions": [
+        "Canada"
+      ],
+      "topics": [
+        "ROE",
+        "insurable_earnings",
+        "insurable_hours",
+        "interruption_of_earnings"
+      ],
+      "document_type": "guide",
+      "pay_periods_per_year": null,
+      "needs_update_review": true,
+      "content_review_status": "pending",
+      "ingestion_status": "not_started",
+      "size_bytes": 2067359,
+      "sha256": "68592a20f09bc89a6b5736f971fd834410295824ddbf7e9eb324d104db1ca967",
+      "notes": [
+        "PDF linked from the checked Service Canada ROE guide.",
+        "Edition year and effective date have not been verified; null values are intentional. Review current requirements before using this guide."
+      ]
+    }
+  ]
+}

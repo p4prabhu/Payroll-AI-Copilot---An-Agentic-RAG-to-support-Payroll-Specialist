@@ -1,0 +1,26 @@
+# Local Python environment
+.venv/
+
+# Python-generated files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local secrets; keep the configuration example
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+
+# Generated databases and logs
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.log
+
+# macOS system files
+.DS_Store
+
+# Generated vector index
+knowledge/vector_store/
