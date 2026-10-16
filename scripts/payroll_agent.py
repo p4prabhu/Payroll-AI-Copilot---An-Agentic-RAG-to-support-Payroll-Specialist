@@ -5,6 +5,7 @@ import json
 import os
 import re
 import sys
+from datetime import date
 from typing import Annotated, Any, Callable, Literal, TypedDict
 
 from dotenv import load_dotenv
@@ -35,6 +36,110 @@ CAPABILITIES = {
     "compensation_requests": False,
     "mcp_transport": False,
 }
+
+
+def payment_context(messages: list[BaseMessage]) -> dict[str, Any]:
+    """Retain explicit user payment dates; never infer one from model or source text."""
+    context: dict[str, Any] = {"date": None, "status": "missing"}
+    for message in messages:
+        if not isinstance(message, HumanMessage) or not isinstance(message.content, str):
+            continue
+        text = message.content.strip()
+        labeled = re.search(r"\b(?:payment|payroll|pay)\s+date\b", text, re.IGNORECASE)
+        bare_date = re.fullmatch(r"\d{4}-\d{2}-\d{2}[.!]?", text)
+        if not labeled and not bare_date:
+            continue
+        if re.search(r"\b(?:clear|reset)\s+(?:the\s+)?(?:payment|payroll|pay)\s+date\b", text, re.IGNORECASE):
+            context = {"date": None, "status": "missing"}
+            continue
+        values = re.findall(r"\b\d{4}-\d{2}-\d{2}\b", text)
+        if len(set(values)) > 1:
+            context = {"date": None, "status": "ambiguous"}
+        elif values:
+            try:
+                context = {"date": date.fromisoformat(values[0]).isoformat(), "status": "provided"}
+            except ValueError:
+                context = {"date": None, "status": "invalid"}
+        elif labeled and re.match(
+            r"\s*(?:is\b|to\b|will be\b|[:=]|today\b|tomorrow\b|unknown\b|unsure\b|"
+            r"not (?:sure|set|provided)\b|\d|[A-Za-z]+\s+\d)",
+            text[labeled.end():], re.IGNORECASE,
+        ):
+            context = {"date": None, "status": "needs_iso_date"}
+    return context
+
+
+def source_applicability(source: dict, payment_date: str | None) -> str:
+    """Check known date bounds, preserving uncertainty when either is missing."""
+    try:
+        start = date.fromisoformat(source["effective_from"]) if source.get("effective_from") else None
+        end = date.fromisoformat(source["effective_to"]) if source.get("effective_to") else None
+        if start and end and start > end:
+            return "invalid_effective_dates"
+        payment = date.fromisoformat(payment_date) if payment_date else None
+    except (ValueError, TypeError):
+        return "invalid_effective_dates"
+    if payment is None:
+        return "payment_date_missing"
+    if start and payment < start:
+        return "before_effective_from"
+    if end and payment > end:
+        return "after_effective_to"
+    if start is None or end is None:
+        return "effective_dates_incomplete"
+    return "within_known_effective_dates"
+
+
+def payment_date_violation(text: str, payment_date: str | None) -> str | None:
+    """Reject observed affirmative date assumptions; not all possible date language."""
+    pattern = (
+        r"\b(?:as of|payment date(?:\s+is)?|paid on|payment on)\s*[:*]*\s*"
+        r"(\d{4}-\d{2}-\d{2}|[A-Za-z]+\s+\d{1,2},?\s+\d{4}|today|tomorrow)\b"
+    )
+    months = {name.lower(): number for number, name in enumerate((
+        "January", "February", "March", "April", "May", "June", "July", "August",
+        "September", "October", "November", "December"), start=1)}
+    for match in re.finditer(pattern, text, re.IGNORECASE):
+        value = match.group(1)
+        try:
+            if re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+                claimed = date.fromisoformat(value).isoformat()
+            else:
+                parts = re.fullmatch(r"([A-Za-z]+)\s+(\d{1,2}),?\s+(\d{4})", value)
+                if not parts:
+                    return "Use the user-provided payment date, not today or tomorrow"
+                claimed = date(int(parts[3]), months[parts[1].lower()], int(parts[2])).isoformat()
+        except (ValueError, KeyError):
+            return "Invalid claimed payment date"
+        if claimed != payment_date:
+            return "Payment date was not provided by the user or differs from the confirmed date; ask for YYYY-MM-DD"
+    return None
+
+
+def applicability_violation(text: str, sources: list[dict], payment_date: str | None) -> str | None:
+    """Catch observed definitive application claims when source dates are unresolved."""
+    if payment_date is None or not any(
+        source_applicability(source, payment_date) == "effective_dates_incomplete" for source in sources
+    ):
+        return None
+    for sentence in re.split(r"[.!?\n]", text):
+        claim = re.search(
+            r"\b(?:apply|applies|applicable|valid|in force|effective)\b.{0,90}"
+            r"\b(?:your|this|the) (?:intended )?(?:payment|pay) date\b|"
+            r"\b(?:your|this|the) (?:intended )?(?:payment|pay) date\b.{0,90}"
+            r"\b(?:apply|applies|applicable|valid|in force|effective)\b",
+            sentence, re.IGNORECASE,
+        )
+        if claim:
+            qualified = re.search(
+                r"\b(?:cannot|can't|unable to|do not)\s+(?:currently )?"
+                r"(?:confirm|verify|establish|determine|know)\b|"
+                r"\b(?:unknown|uncertain|unresolved|unverified)\s+(?:whether|if)\b",
+                sentence[:claim.start()], re.IGNORECASE,
+            )
+            if not qualified:
+                return "Effective dates are incomplete; do not claim the guidance applies to the user's payment date. Explain that applicability cannot be confirmed"
+    return None
 
 
 def capability_violation(status: str, text: str) -> str | None:
@@ -105,6 +210,8 @@ class AgentState(TypedDict):
     model_calls: int
     searches: int
     correction_attempts: int
+    payment_date: str | None
+    payment_date_status: str
     evidence: dict[str, dict[str, Any]]
     trace: list[dict[str, Any]]
     outcome: dict[str, Any]
@@ -140,6 +247,14 @@ STATUS AND CAPABILITY RULES:
   tax year, TD1 amounts, exemptions, or year-to-date contributions. If details are
   sufficient but calculation is still requested, use unsupported and explain the
   unavailable calculation tool. Do not invent an exact deduction or net-pay amount.
+- For salary intake, ask for the payment date before tax-year-specific details
+  whenever runtime payment_date is null. Ask for YYYY-MM-DD. Never use today's
+  date, the current tax year, an assistant's earlier assumption, or a source's
+  publication date as the user's payment date. Invalid or ambiguous dates need
+  clarification. Reuse a provided date on follow-up and acknowledge it explicitly
+  in YYYY-MM-DD form when confirming context. An illustrative date-format example
+  never establishes the user's date. Do not select a tax year when that date is missing.
+  Without that date, do not choose a year's standard TD1 amounts or YTD cutoff.
 - General payroll document questions can use answer with supporting retrieved
   sources. Clarification is for missing information relevant to a supported task
   or transparent payroll intake, never a substitute for explaining unavailable tools.
@@ -185,7 +300,16 @@ def build_agent(model: Any, retriever: Callable[..., dict] = search_documents):
     prompt = system_prompt()
 
     def model_node(state: AgentState) -> dict:
-        messages = [SystemMessage(content=prompt), *state["messages"]]
+        date_context = {"payment_date": state["payment_date"], "status": state["payment_date_status"]}
+        messages = [SystemMessage(content=prompt + "\n\nUSER PAYMENT DATE CONTEXT: " + json.dumps(date_context)
+            + "\nThis context is derived only from user messages, never from retrieved documents. "
+              "If payment_date is null, ask for it before date-sensitive intake or table selection. "
+              "For general definitions, explain evidence limitations without requiring an irrelevant date. "
+              "A source with unknown/incomplete effective dates has unresolved applicability; edition year is not validity. "
+              "Do not claim that such rules apply to the user's payment date. Describe what the edition says as "
+              "general guidance and explicitly say applicability cannot be confirmed. Incomplete date metadata "
+              "is not explained by failure to retrieve a different publication. Do not turn a worked formula "
+              "example into an employee-specific deduction."), *state["messages"]]
         if sum(len(str(message.content)) for message in messages) > MAX_CONTEXT_CHARS:
             return {"messages": [AIMessage(content="", tool_calls=[{
                 "name": SUBMIT_NAME, "id": "context_limit", "type": "tool_call", "args": {
@@ -220,7 +344,13 @@ def build_agent(model: Any, retriever: Callable[..., dict] = search_documents):
                 searches += 1
                 try:
                     args = SearchArguments.model_validate(call["args"]).model_dump()
-                    result = search_tool.invoke(args)
+                    if state["payment_date"] is None and (
+                        args["document_type"] == "deduction_table" or args["pay_periods_per_year"] is not None
+                    ):
+                        result = {"status": "clarification_required", "results": [],
+                                  "error": "Ask the user for the payment date in YYYY-MM-DD before selecting deduction tables. No retrieval request was made."}
+                    else:
+                        result = search_tool.invoke(args)
                     results = []
                     for item in result["results"]:
                         if not all(key in item for key in ("chunk_id", "content", "source_url", "title", "pdf_page_number", "review_status")):
@@ -230,7 +360,8 @@ def build_agent(model: Any, retriever: Callable[..., dict] = search_documents):
                         if source_id is None:
                             source_id = f"S{len(evidence) + 1}"
                         evidence[source_id] = dict(item)
-                        results.append({"source_id": source_id, **item})
+                        results.append({"source_id": source_id, **item,
+                            "payment_applicability": source_applicability(item, state["payment_date"])})
                     output = {**result, "results": results}
                 except Exception:
                     # Raw API errors can contain request details; never expose them.
@@ -285,6 +416,15 @@ def build_agent(model: Any, retriever: Callable[..., dict] = search_documents):
             violation = capability_violation(status, text)
             if violation:
                 raise ValueError(violation)
+            violation = payment_date_violation(text, state["payment_date"])
+            if violation:
+                raise ValueError(violation)
+            if status == "answer" and any(source_applicability(state["evidence"][key], state["payment_date"])
+                in ("before_effective_from", "after_effective_to", "invalid_effective_dates") for key in citations):
+                raise ValueError("Cited evidence conflicts with known effective-date bounds; retrieve applicable evidence or explain the gap")
+            violation = applicability_violation(text, [state["evidence"][key] for key in citations], state["payment_date"])
+            if violation:
+                raise ValueError(violation)
             outcome = {"status": status, "text": text, "citations": list(dict.fromkeys(citations))}
         except (ValueError, TypeError, KeyError) as error:
             outcome = fallback
@@ -296,12 +436,20 @@ def build_agent(model: Any, retriever: Callable[..., dict] = search_documents):
             validation = {"event": "response_validation", "status": "rejected", "reason": reason}
         else:
             validation = {"event": "response_validation", "status": "accepted"}
-        sources = [{"source_id": key, **state["evidence"][key]} for key in outcome["citations"]]
+        sources = [{"source_id": key, **state["evidence"][key],
+                    "payment_applicability": source_applicability(state["evidence"][key], state["payment_date"])}
+                   for key in outcome["citations"]]
+        outcome["payment_date"] = state["payment_date"]
+        outcome["payment_date_status"] = state["payment_date_status"]
         outcome["sources"] = sources
         if any(item["review_status"] != "approved" for item in sources):
             outcome["text"] += "\n\nSource content review is pending; this answer is provisional."
         if any(item.get("needs_update_review") for item in sources):
             outcome["text"] += "\nSome cited editions need update review; current applicability has not been verified."
+        if any(not item.get("effective_from") or not item.get("effective_to") for item in sources):
+            outcome["text"] += "\nSome cited sources have unknown or incomplete effective dates; payment-date applicability remains unresolved."
+        elif sources and state["payment_date"] is None:
+            outcome["text"] += "\nNo payment date was supplied; date-specific applicability has not been assessed."
         return {"outcome": outcome, "trace": [*state["trace"], validation]}
 
     def route_finish(state: AgentState) -> str:
@@ -331,6 +479,9 @@ def build_agent(model: Any, retriever: Callable[..., dict] = search_documents):
             "Employee payday requests must use unsupported because employee records and "
             "the company payroll calendar are not connected. Salary intake may use clarification "
             "but must disclose the unavailable calculation tool and must not promise calculation. "
+            f"The user-provided payment date is {state['payment_date'] or 'missing'} "
+            f"(status: {state['payment_date_status']}). If missing, ask for YYYY-MM-DD "
+            "before date-sensitive salary intake; do not assume today or a tax year. "
             f"Available source IDs: {json.dumps(list(state['evidence']))}. "
             "Do not invent citation IDs or URLs. This is your only correction opportunity; "
             "the original model-call and search limits still apply."
@@ -367,6 +518,7 @@ def run_turn(graph: Any, question: str, history: list[BaseMessage] | None = None
     question = question.strip()
     if not question or len(question) > 4000:
         raise ValueError("Question must contain 1 to 4,000 characters")
+    context = payment_context([*(history or []), HumanMessage(content=question)])
     recent = list(history or [])[-12:]
     # Keep whole user/assistant exchanges, never unmatched tool-call messages.
     if len(recent) % 2 or any(not isinstance(message, HumanMessage if i % 2 == 0 else AIMessage)
@@ -377,6 +529,7 @@ def run_turn(graph: Any, question: str, history: list[BaseMessage] | None = None
     return graph.invoke({
         "messages": [*recent, HumanMessage(content=question)],
         "model_calls": 0, "searches": 0, "correction_attempts": 0,
+        "payment_date": context["date"], "payment_date_status": context["status"],
         "evidence": {}, "trace": [], "outcome": {},
     }, config={"recursion_limit": 16})
 

@@ -147,6 +147,34 @@ replace capability authorization or deterministic calculation tools. Live tests
 check both salary turns for a calculation limitation and reject employee-ID
 collection in the unavailable-payday scenario.
 
+Payment-date context is derived only from user messages. Supply an explicit
+`YYYY-MM-DD` date, either alone or labeled, for example `Payment date: 2026-11-13`.
+It is retained across follow-ups even when its original exchange leaves the
+model's recent-history window. A new labeled ISO date replaces it; `clear the
+payment date` resets it. Invalid ISO dates, multiple candidate dates, and labeled
+relative or ambiguous date formats clear the old date and require clarification.
+This is conservative parsing, not general natural-language date understanding.
+Dates in assistant replies and source documents cannot establish user context.
+An illustrative date-format example in a reply likewise cannot establish it.
+
+The model receives this context every call and must ask for a missing date before
+date-sensitive intake. Explicit deduction-table or frequency-filter requests are
+blocked before retrieval until a date is provided. Targeted output checks reject
+observed assumed-date claims, including `as of` a different date. These language
+checks are not complete semantic verification.
+
+Retrieved sources carry `payment_applicability`. Known effective-date bounds are
+compared inclusively against the provided date. A source outside a known bound,
+or with invalid bounds, cannot support an `answer`. Missing bounds remain
+unresolved; a null end date does not establish indefinite applicability. Final
+cited responses display unknown/incomplete-date limitations. Edition year is
+not a substitute for effective dates. For general definitions without a payment
+date, the response can explain evidence limitations without demanding one.
+Targeted validation also rejects observed definitive claims that guidance applies
+to the user's payment date when cited date bounds are incomplete. Qualified
+explanations of what a publication says remain allowed. This is a regression
+guard for known language patterns, not complete claim-to-source verification.
+
 This uses ordinary function tool calling. The separate API `response_format`
 setting is not sent: the earlier native-output-schema configuration returned
 HTTP 400 with the selected model. Incomplete API responses are rejected before
@@ -182,7 +210,25 @@ calculation tool, and the follow-up retained the $50,000 salary and biweekly pay
 Each turn used one response-format correction. These checks do not establish
 full payroll correctness: the salary follow-up still assumed today's payment
 date and current tax year despite the prompt asking for the intended date.
-Payment-date handling remains a known gap.
+That run preceded explicit user-derived payment-date context and applicability
+checks. A subsequent three-turn date conversation was executed with recorded
+turns reused after test assertion corrections, avoiding duplicate model requests.
+It retained the explicitly supplied `2026-11-13` date through a follow-up and
+retrieval. The recorded rerun used ten model calls and four embedding requests.
+Its original automated checks passed, but review found a definitive applicability
+claim despite incomplete source dates. The new regression guard rejects that
+observed claim and permits qualified uncertainty; 40 offline tests now pass.
+That live reply also included unverified gross-pay arithmetic and answered a T4001-specific request
+with T4127 excerpts. Calculation and source-grounding quality remain unresolved.
+Full reproduction of the updated live acceptance test remains pending.
+
+A subsequent focused applicability test passed all eight execution, citation,
+metadata and targeted-wording checks. With payment date `2026-11-13`, it retrieved
+the requested T4001 2025 guide, cited PDF pages 32 and 58, and explained that
+incomplete effective-date metadata prevents confirmation of applicability. The
+test used three model calls, one embedding request and one correction. It checks
+the focused guard and source selection for this question, not every payroll fact
+or the full multi-turn acceptance suite. Runtime logs remain local and ignored.
 
 The final response must identify retrieved sources. The application rejects
 unknown citation IDs and uncited answers and attaches links and PDF pages

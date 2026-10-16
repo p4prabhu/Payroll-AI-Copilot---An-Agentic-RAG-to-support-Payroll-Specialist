@@ -1,7 +1,7 @@
 """Offline workflow tests and explicitly enabled paid acceptance scenarios.
 
 Normal runs skip live scenarios. After approving API charges, set
-RUN_LIVE_AGENT_TESTS=1 to enable them. Three scenarios execute four turns total,
+RUN_LIVE_AGENT_TESTS=1 to enable them. Four scenarios execute seven turns total,
 each subject to the agent's model-call and search limits. Keyword assertions
 are acceptance screens, not independent verification of payroll facts.
 """
@@ -16,7 +16,7 @@ from unittest.mock import Mock
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
-from payroll_agent import MAX_MODEL_CALLS, MAX_SEARCHES, SUBMIT_NAME, TOOL_NAME, build_agent, create_model, render_answer, submission_tool, run_turn
+from payroll_agent import MAX_MODEL_CALLS, MAX_SEARCHES, SUBMIT_NAME, TOOL_NAME, applicability_violation, build_agent, create_model, payment_context, render_answer, source_applicability, submission_tool, run_turn
 
 
 def final(status, text, citations=None):
@@ -362,6 +362,111 @@ class PayrollAgentTests(unittest.TestCase):
                 self.assertEqual(state["outcome"]["status"], "unsupported")
                 self.assertEqual(state["trace"][-1]["status"], "rejected")
 
+    def test_payment_context_uses_user_dates_and_explicit_changes_only(self):
+        history = [HumanMessage(content="The payment date is 2026-11-13."),
+                   AIMessage(content="Assuming the payment date is 2026-10-16."),
+                   HumanMessage(content="Biweekly.")]
+        self.assertEqual(payment_context(history), {"date": "2026-11-13", "status": "provided"})
+        changed = payment_context([*history, HumanMessage(content="Change payment date to 2026-12-04.")])
+        self.assertEqual(changed["date"], "2026-12-04")
+        self.assertEqual(payment_context([*history, HumanMessage(content="Using that same payment date, explain the T4001 guide")])["date"], "2026-11-13")
+        self.assertEqual(payment_context([AIMessage(content="The payment date is 2026-11-13")])["status"], "missing")
+        self.assertEqual(payment_context([HumanMessage(content="Compare the 2026-07-01 formula edition")])["date"], None)
+
+    def test_invalid_or_ambiguous_payment_date_clears_previous_date(self):
+        previous = [HumanMessage(content="Payment date: 2026-11-13")]
+        for message, expected in (("Payment date is 2026-02-30", "invalid"),
+                                  ("Payment date is 2026-11-13 or 2026-11-20", "ambiguous"),
+                                  ("Payment date is 03/04/2026", "needs_iso_date"),
+                                  ("Payment date is tomorrow", "needs_iso_date"),
+                                  ("Payment date is next Friday", "needs_iso_date"),
+                                  ("Clear the payment date", "missing")):
+            with self.subTest(message=message):
+                self.assertEqual(payment_context([*previous, HumanMessage(content=message)]),
+                                 {"date": None, "status": expected})
+
+    def test_date_retained_when_old_exchange_is_trimmed_from_model_history(self):
+        history = [HumanMessage(content="Payment date: 2026-11-13"), AIMessage(content="Noted.")]
+        for number in range(7):
+            history.extend([HumanMessage(content=f"General follow-up {number}"), AIMessage(content="Noted.")])
+        model = FakeModel([final("clarification", "Using payment date 2026-11-13. What TD1 information is available?")])
+        state = run_turn(build_agent(model, Mock()), "Keep the same date", history)
+        self.assertEqual(state["payment_date"], "2026-11-13")
+        self.assertEqual(state["outcome"]["payment_date"], "2026-11-13")
+        self.assertNotIn("Payment date:", str([message.content for message in model.seen[0][1:]]))
+        self.assertIn('"payment_date": "2026-11-13"', model.seen[0][0].content)
+
+    def test_assumed_payment_date_is_rejected_and_corrected(self):
+        for text in ("As of October 16, 2026, what are your TD1 amounts?",
+                     "Your payment date is 2026-10-16. What frequency?",
+                     "Using payment date today, what is your frequency?"):
+            with self.subTest(text=text):
+                corrected = final("clarification", "What is the intended payment date in YYYY-MM-DD format? Payroll calculation is not implemented.")
+                state = run_turn(build_agent(FakeModel([final("clarification", text), corrected]), Mock()), "Salary intake")
+                self.assertEqual(state["correction_attempts"], 1)
+                self.assertEqual(state["outcome"]["status"], "clarification")
+                self.assertIsNone(state["payment_date"])
+
+    def test_frequency_table_selection_requires_user_payment_date(self):
+        model = FakeModel([call(document_type="deduction_table", pay_periods_per_year=26),
+                           final("clarification", "What is the payment date in YYYY-MM-DD format?")])
+        retriever = Mock()
+        state = run_turn(build_agent(model, retriever), "Ontario biweekly deduction table")
+        retriever.assert_not_called()
+        self.assertEqual(state["trace"][1]["status"], "clarification_required")
+        self.assertEqual(state["outcome"]["status"], "clarification")
+
+    def test_source_applicability_checks_bounds_without_inferring_missing_dates(self):
+        cases = [
+            ({"effective_from": "2026-01-01", "effective_to": "2026-06-30"}, "2026-06-30", "within_known_effective_dates"),
+            ({"effective_from": "2026-07-01"}, "2026-06-30", "before_effective_from"),
+            ({"effective_to": "2026-06-30"}, "2026-07-01", "after_effective_to"),
+            ({"effective_from": "2026-01-01"}, "2026-11-13", "effective_dates_incomplete"),
+            ({"edition_year": 2026}, "2026-11-13", "effective_dates_incomplete"),
+            ({"effective_from": "2026-01-01", "effective_to": "2026-12-31"}, None, "payment_date_missing"),
+            ({"effective_from": "bad-date"}, "2026-11-13", "invalid_effective_dates"),
+            ({"effective_from": "2027-01-01", "effective_to": "2026-01-01"}, "2026-11-13", "invalid_effective_dates"),
+        ]
+        for source, payment, expected in cases:
+            with self.subTest(source=source, payment=payment):
+                self.assertEqual(source_applicability(source, payment), expected)
+
+    def test_unknown_dates_are_visible_in_tool_output_and_final_answer(self):
+        model = FakeModel([call(), final("answer", "Box 22 reports tax deducted [S1].", ["S1"])])
+        state = run_turn(build_agent(model, Mock(return_value=evidence())), "Payment date: 2026-11-13. What is box 22?")
+        self.assertEqual(state["outcome"]["sources"][0]["payment_applicability"], "effective_dates_incomplete")
+        self.assertIn("applicability remains unresolved", state["outcome"]["text"])
+        tool_data = json.loads(model.seen[1][-1].content)
+        self.assertEqual(tool_data["results"][0]["payment_applicability"], "effective_dates_incomplete")
+
+    def test_answer_cannot_rely_on_source_outside_known_dates(self):
+        saved = evidence()
+        saved["results"][0].update(effective_from="2025-01-01", effective_to="2025-12-31")
+        model = FakeModel([call(), final("answer", "Use this guidance [S1].", ["S1"]),
+                           final("unsupported", "The retrieved guide has expired for your intended payment date.")])
+        state = run_turn(build_agent(model, Mock(return_value=saved)), "Payment date: 2026-11-13. Which guidance applies?")
+        self.assertEqual(state["outcome"]["status"], "unsupported")
+        self.assertEqual(state["correction_attempts"], 1)
+        self.assertIn("conflicts with known effective-date bounds", state["trace"][3]["reason"])
+
+    def test_unknown_effective_dates_cannot_support_definitive_application_claim(self):
+        invalid = final("answer", "Both deductions apply to your payment date of 2026-11-13 under 2026 guidance.", ["S1"])
+        corrected = final("answer", "The guide describes deductions. I cannot confirm whether these rules apply to your payment date because effective dates are incomplete [S1].", ["S1"])
+        state = run_turn(build_agent(FakeModel([call(), invalid, corrected]), Mock(return_value=evidence())),
+                         "Payment date: 2026-11-13. Explain this guide.")
+        self.assertEqual(state["correction_attempts"], 1)
+        self.assertIn("Effective dates are incomplete", state["trace"][3]["reason"])
+        self.assertEqual(state["trace"][-1]["status"], "accepted")
+        self.assertEqual(state["outcome"]["status"], "answer")
+        self.assertIn("applicability remains unresolved", state["outcome"]["text"])
+
+    def test_unknown_date_overclaim_cannot_bypass_correction_limit(self):
+        invalid = final("answer", "These rules apply to your payment date of 2026-11-13.", ["S1"])
+        state = run_turn(build_agent(FakeModel([call(), invalid, invalid]), Mock(return_value=evidence())),
+                         "Payment date: 2026-11-13. Explain this guide.")
+        self.assertEqual(state["outcome"]["status"], "unsupported")
+        self.assertEqual(state["trace"][-1]["status"], "rejected")
+
 
 @unittest.skipUnless(os.getenv("RUN_LIVE_AGENT_TESTS") == "1",
                      "Paid API scenario disabled; requires explicit RUN_LIVE_AGENT_TESTS=1")
@@ -379,6 +484,7 @@ class LivePayrollAgentTests(unittest.TestCase):
             "output": render_answer(outcome),
             "model_calls": state["model_calls"], "searches": state["searches"],
             "correction_attempts": state["correction_attempts"], "trace": state["trace"],
+            "payment_date": state["payment_date"], "payment_date_status": state["payment_date_status"],
         }, ensure_ascii=True, indent=2), flush=True)
         self.assertEqual(state["trace"][-1]["status"], "accepted",
                          "A fallback is not a successful model response")
@@ -403,7 +509,7 @@ class LivePayrollAgentTests(unittest.TestCase):
     def assert_intake_limits(self, text):
         text = text.lower()
         self.assertRegex(text, r"calculat(?:e|ion|or|ions)")
-        self.assertRegex(text, r"not (?:yet )?(?:implemented|available|supported|connected|enabled)|unavailable|cannot calculate|can't calculate|do not have|does not (?:have|include|support)")
+        self.assertRegex(text, r"not (?:yet )?(?:implemented|available|supported|connected|enabled)|unavailable|cannot (?:calculate|compute)|can't (?:calculate|compute)|do not have|does not (?:yet )?(?:have|include|support)")
         self.assertNotRegex(text, r"\b(?:i|we)\s+(?:can|will)\s+(?:then\s+)?(?:calculate|compute)\b")
 
     def test_t4_answer_has_evidence_for_both_boxes(self):
@@ -430,6 +536,33 @@ class LivePayrollAgentTests(unittest.TestCase):
         self.assertRegex(text, r"(?:not|cannot|can't|unavailable|don't|do not|no access|unable)")
         self.assertNotRegex(text, r"\b\d{4}-\d{2}-\d{2}\b|\b\d{1,2}/\d{1,2}/\d{2,4}\b")
         self.assertNotRegex(text, r"(?:what is|provide|tell me)[^.!?\n]{0,80}employee id")
+
+    def test_payment_date_conversation(self):
+        question = "What are deductions on a $50,000 annual salary in Ontario?"
+        first = self.checked_turn(question)
+        self.assertEqual(first["outcome"]["status"], "clarification")
+        self.assertIsNone(first["payment_date"])
+        self.assertRegex(first["outcome"]["text"].lower(), r"payment date|pay date|payroll date")
+        # A labeled format example is allowed; it must never become user context.
+        self.assertEqual(first["payment_date_status"], "missing")
+        self.assert_intake_limits(first["outcome"]["text"])
+        history = [HumanMessage(content=question), AIMessage(content=render_answer(first["outcome"]))]
+        second_question = "The payment date is 2026-11-13. Biweekly. Confirm the salary and date we are using."
+        second = self.checked_turn(second_question, history)
+        self.assertEqual(second["payment_date"], "2026-11-13")
+        self.assertIn("2026-11-13", second["outcome"]["text"])
+        self.assertRegex(second["outcome"]["text"].lower(), r"50[ ,]?000|50\s*k")
+        self.assert_intake_limits(second["outcome"]["text"])
+        history.extend([HumanMessage(content=second_question), AIMessage(content=render_answer(second["outcome"]))])
+        third = self.checked_turn(
+            "Using that same payment date, what does the indexed T4001 guide say about deducting CPP and EI from bonuses? Explain any effective-date uncertainty.", history)
+        self.assertEqual(third["payment_date"], "2026-11-13")
+        self.assertEqual(third["outcome"]["status"], "answer")
+        self.assertTrue(third["outcome"]["sources"])
+        self.assertTrue(any(source["payment_applicability"] == "effective_dates_incomplete" for source in third["outcome"]["sources"]))
+        self.assertIn("applicability remains unresolved", third["outcome"]["text"])
+        self.assertIsNone(applicability_violation(third["outcome"]["text"], third["outcome"]["sources"], third["payment_date"]),
+                          "An appended warning cannot excuse a definitive applicability claim in the answer")
 
 
 if __name__ == "__main__":
