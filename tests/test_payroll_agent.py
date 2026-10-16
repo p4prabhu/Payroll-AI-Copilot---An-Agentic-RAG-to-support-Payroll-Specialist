@@ -53,7 +53,8 @@ class FakeModel:
 
     def invoke(self, messages):
         self.seen.append(messages)
-        return next(self.responses)
+        # Each API response is a new message, even when text/arguments repeat.
+        return next(self.responses).model_copy(deep=True, update={"id": None})
 
 
 class PayrollAgentTests(unittest.TestCase):
@@ -84,7 +85,7 @@ class PayrollAgentTests(unittest.TestCase):
             with self.subTest(draft=draft):
                 response = final("unsupported", "Placeholder")
                 response.tool_calls[0]["args"] = draft
-                model = FakeModel([response])
+                model = FakeModel([response, response])
                 state = run_turn(build_agent(model, Mock()), "Question")
                 self.assertEqual(state["outcome"]["status"], "unsupported")
                 self.assertEqual(state["trace"][-1]["reason"], "Final response schema validation failed")
@@ -190,7 +191,8 @@ class PayrollAgentTests(unittest.TestCase):
         self.assertEqual(state["outcome"]["status"], "unsupported")
 
     def test_unknown_citation_is_rejected(self):
-        model = FakeModel([call(), final("answer", "Income tax deducted.", ["S999"])])
+        rejected = final("answer", "Income tax deducted.", ["S999"])
+        model = FakeModel([call(), rejected, rejected])
         state = run_turn(build_agent(model, Mock(return_value=evidence())), "T4 box 22?")
         self.assertEqual(state["outcome"]["status"], "unsupported")
         self.assertEqual(state["outcome"]["sources"], [])
@@ -211,6 +213,7 @@ class PayrollAgentTests(unittest.TestCase):
 
     def test_previous_turn_sources_cannot_support_new_answer_without_search(self):
         model = FakeModel([call(), final("answer", "Tax deducted.", ["S1"]),
+                           final("answer", "Still tax deducted.", ["S1"]),
                            final("answer", "Still tax deducted.", ["S1"])])
         graph = build_agent(model, Mock(return_value=evidence()))
         first = run_turn(graph, "Box 22?")
@@ -222,19 +225,19 @@ class PayrollAgentTests(unittest.TestCase):
     def test_malformed_final_and_uncited_answer_are_rejected(self):
         for response in (AIMessage(content="not json"), final("answer", "An unsupported claim.")):
             with self.subTest(response=response.content):
-                state = run_turn(build_agent(FakeModel([response]), Mock()), "Policy question")
+                state = run_turn(build_agent(FakeModel([response, response]), Mock()), "Policy question")
                 self.assertEqual(state["outcome"]["status"], "unsupported")
 
     def test_plain_json_is_not_accepted_in_place_of_submission_tool(self):
         reply = AIMessage(content=json.dumps({"status": "clarification", "text": "What date?", "citations": []}))
-        state = run_turn(build_agent(FakeModel([reply]), Mock()), "Question")
+        state = run_turn(build_agent(FakeModel([reply, reply]), Mock()), "Question")
         self.assertEqual(state["outcome"]["status"], "unsupported")
         self.assertEqual(state["trace"][-1]["reason"], "A single submit_response tool call is required")
 
     def test_submission_cannot_be_combined_with_search(self):
         combined = AIMessage(content="", tool_calls=[call().tool_calls[0], final("answer", "Claim.", ["S1"]).tool_calls[0]])
         retriever = Mock()
-        state = run_turn(build_agent(FakeModel([combined]), retriever), "Question")
+        state = run_turn(build_agent(FakeModel([combined, combined]), retriever), "Question")
         retriever.assert_not_called()
         self.assertEqual(state["outcome"]["status"], "unsupported")
 
@@ -251,9 +254,113 @@ class PayrollAgentTests(unittest.TestCase):
         for url, expected in [("https://www.canada.ca/test-guide.pdf", "answer"),
                               ("https://example.com/invented", "unsupported")]:
             with self.subTest(url=url):
-                model = FakeModel([call(), final("answer", f"Tax deducted. See {url}", ["S1"])])
+                reply = final("answer", f"Tax deducted. See {url}", ["S1"])
+                model = FakeModel([call(), reply] + ([reply] if expected == "unsupported" else []))
                 state = run_turn(build_agent(model, Mock(return_value=evidence())), "Box 22?")
                 self.assertEqual(state["outcome"]["status"], expected)
+
+    def test_plain_clarification_can_be_corrected_without_retrieval(self):
+        retriever = Mock()
+        model = FakeModel([AIMessage(content="How often are you paid?"),
+                           final("clarification", "How often are you paid?")])
+        state = run_turn(build_agent(model, retriever), "Deductions on $50,000?")
+        self.assertEqual(state["outcome"]["status"], "clarification")
+        self.assertEqual(state["correction_attempts"], 1)
+        self.assertEqual(state["model_calls"], 2)
+        retriever.assert_not_called()
+        self.assertIsInstance(model.seen[1][-1], HumanMessage)
+        self.assertIn("Application validation feedback", model.seen[1][-1].content)
+
+    def test_invalid_submission_gets_paired_feedback_and_can_explain_gap(self):
+        invalid = final("unsupported", "Employee data is unavailable.")
+        del invalid.tool_calls[0]["args"]["citations"]
+        model = FakeModel([invalid, final("unsupported", "Employee data is unavailable.")])
+        state = run_turn(build_agent(model, Mock()), "Alex's next payday?")
+        self.assertEqual(state["trace"][-1]["status"], "accepted")
+        self.assertEqual(state["outcome"]["text"], "Employee data is unavailable.")
+        feedback = model.seen[1][-1]
+        self.assertIsInstance(feedback, ToolMessage)
+        self.assertEqual(feedback.tool_call_id, invalid.tool_calls[0]["id"])
+        self.assertEqual(json.loads(feedback.content)["status"], "validation_error")
+
+    def test_correction_preserves_evidence_and_requires_valid_citation(self):
+        retriever = Mock(return_value=evidence())
+        model = FakeModel([call(), final("answer", "Income tax deducted.", ["S999"]),
+                           final("answer", "Income tax deducted [S1].", ["S1"])])
+        state = run_turn(build_agent(model, retriever), "Box 22?")
+        self.assertEqual(state["outcome"]["status"], "answer")
+        self.assertEqual(state["outcome"]["sources"][0]["chunk_id"], "test-chunk")
+        self.assertEqual(state["correction_attempts"], 1)
+        self.assertEqual(retriever.call_count, 1)
+        self.assertIn('Available source IDs: ["S1"]', json.loads(model.seen[2][-1].content)["feedback"])
+
+    def test_repeated_invalid_responses_stop_after_one_correction(self):
+        model = FakeModel([AIMessage(content="plain response"), AIMessage(content="still plain")])
+        state = run_turn(build_agent(model, Mock()), "Question")
+        self.assertEqual(state["model_calls"], 2)
+        self.assertEqual(state["correction_attempts"], 1)
+        self.assertEqual(state["outcome"]["status"], "unsupported")
+        self.assertEqual(state["trace"][-1]["status"], "rejected")
+
+    def test_correction_cannot_exceed_model_call_budget(self):
+        model = FakeModel([*[call(i) for i in range(MAX_MODEL_CALLS - 1)], AIMessage(content="invalid final")])
+        state = run_turn(build_agent(model, Mock(return_value=evidence())), "Question")
+        self.assertEqual(state["model_calls"], MAX_MODEL_CALLS)
+        self.assertEqual(state["correction_attempts"], 0)
+        self.assertEqual(state["outcome"]["status"], "unsupported")
+
+    def test_correction_budget_resets_for_followup_turn(self):
+        model = FakeModel([AIMessage(content="plain"), final("clarification", "What frequency?"),
+                           AIMessage(content="plain again"), final("clarification", "What payment date?")])
+        graph = build_agent(model, Mock())
+        first = run_turn(graph, "Deductions on $50,000?")
+        history = [HumanMessage(content="Deductions on $50,000?"),
+                   AIMessage(content=render_answer(first["outcome"]))]
+        second = run_turn(graph, "Biweekly", history)
+        self.assertEqual(first["correction_attempts"], 1)
+        self.assertEqual(second["correction_attempts"], 1)
+        self.assertEqual(second["model_calls"], 2)
+        self.assertEqual(second["outcome"]["status"], "clarification")
+
+    def test_employee_access_gap_requires_unsupported_status(self):
+        invalid = final("clarification", "I do not have access to employee records or the company payroll schedule. What is Alex's employee ID?")
+        corrected = final("unsupported", "I cannot determine Alex's next payday because employee records and the company payroll calendar are not connected.")
+        retriever = Mock()
+        state = run_turn(build_agent(FakeModel([invalid, corrected]), retriever), "Alex's next payday?")
+        retriever.assert_not_called()
+        self.assertEqual(state["outcome"]["status"], "unsupported")
+        self.assertEqual(state["trace"][-1]["status"], "accepted")
+        self.assertEqual(state["correction_attempts"], 1)
+        self.assertIn("requires unsupported status", state["trace"][1]["reason"])
+
+    def test_calculation_promises_are_rejected_and_can_be_corrected(self):
+        for promise in (
+            "I can calculate your payroll deductions.",
+            "Once you provide TD1 details, I will calculate your net pay.",
+            "I can search the applicable 2026 tables and calculate specific deductions.",
+        ):
+            with self.subTest(promise=promise):
+                invalid = final("clarification", promise + " What is your frequency?")
+                corrected = final("clarification", "Payroll calculation is not implemented. I can collect details for intake: what is your pay frequency and intended payment date?")
+                state = run_turn(build_agent(FakeModel([invalid, corrected]), Mock()), "Deductions on $50,000?")
+                self.assertEqual(state["outcome"]["status"], "clarification")
+                self.assertEqual(state["correction_attempts"], 1)
+                self.assertIn("do not promise to calculate", state["trace"][1]["reason"])
+                self.assertEqual(state["trace"][-1]["status"], "accepted")
+
+    def test_honest_limits_allow_intake_and_document_explanations(self):
+        text = "I cannot calculate payroll deductions; the calculation tool is not implemented. I can explain how deductions are calculated from official guidance. What is the intended payment date?"
+        state = run_turn(build_agent(FakeModel([final("clarification", text)]), Mock()), "Salary intake")
+        self.assertEqual(state["outcome"]["status"], "clarification")
+        self.assertEqual(state["correction_attempts"], 0)
+
+    def test_cited_document_cannot_enable_net_pay_or_employee_access(self):
+        for claim in ("Your net pay is $1,500.", "I can retrieve the employee records."):
+            with self.subTest(claim=claim):
+                invalid = final("answer", claim, ["S1"])
+                state = run_turn(build_agent(FakeModel([call(), invalid, invalid]), Mock(return_value=evidence())), "Payroll question")
+                self.assertEqual(state["outcome"]["status"], "unsupported")
+                self.assertEqual(state["trace"][-1]["status"], "rejected")
 
 
 @unittest.skipUnless(os.getenv("RUN_LIVE_AGENT_TESTS") == "1",
@@ -271,6 +378,7 @@ class LivePayrollAgentTests(unittest.TestCase):
             "input": question, "status": outcome["status"],
             "output": render_answer(outcome),
             "model_calls": state["model_calls"], "searches": state["searches"],
+            "correction_attempts": state["correction_attempts"], "trace": state["trace"],
         }, ensure_ascii=True, indent=2), flush=True)
         self.assertEqual(state["trace"][-1]["status"], "accepted",
                          "A fallback is not a successful model response")
@@ -283,12 +391,20 @@ class LivePayrollAgentTests(unittest.TestCase):
         first = self.checked_turn(question)
         self.assertEqual(first["outcome"]["status"], "clarification")
         self.assertIn("?", first["outcome"]["text"])
+        self.assert_intake_limits(first["outcome"]["text"])
         history = [HumanMessage(content=question),
                    AIMessage(content=render_answer(first["outcome"]))]
         second = self.checked_turn(
             "Biweekly. Please confirm the annual salary I gave you and tell me what else you need.", history)
         self.assertIn(second["outcome"]["status"], ("clarification", "unsupported"))
         self.assertRegex(second["outcome"]["text"].lower(), r"50[ ,]?000|50\s*k")
+        self.assert_intake_limits(second["outcome"]["text"])
+
+    def assert_intake_limits(self, text):
+        text = text.lower()
+        self.assertRegex(text, r"calculat(?:e|ion|or|ions)")
+        self.assertRegex(text, r"not (?:yet )?(?:implemented|available|supported|connected|enabled)|unavailable|cannot calculate|can't calculate|do not have|does not (?:have|include|support)")
+        self.assertNotRegex(text, r"\b(?:i|we)\s+(?:can|will)\s+(?:then\s+)?(?:calculate|compute)\b")
 
     def test_t4_answer_has_evidence_for_both_boxes(self):
         state = self.checked_turn("What do T4 boxes 14 and 22 mean? Cite evidence for each and state edition limitations.")
@@ -313,6 +429,7 @@ class LivePayrollAgentTests(unittest.TestCase):
         self.assertRegex(text, r"(?:employee|company|payroll|schedule|calendar|record|database)")
         self.assertRegex(text, r"(?:not|cannot|can't|unavailable|don't|do not|no access|unable)")
         self.assertNotRegex(text, r"\b\d{4}-\d{2}-\d{2}\b|\b\d{1,2}/\d{1,2}/\d{2,4}\b")
+        self.assertNotRegex(text, r"(?:what is|provide|tell me)[^.!?\n]{0,80}employee id")
 
 
 if __name__ == "__main__":

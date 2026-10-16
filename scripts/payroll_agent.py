@@ -22,9 +22,53 @@ from search_documents import search_documents
 DEFAULT_MODEL = "anthropic/claude-haiku-4-5"
 MAX_MODEL_CALLS = 5
 MAX_SEARCHES = 4
+MAX_CORRECTIONS = 1
 MAX_CONTEXT_CHARS = 120000
 TOOL_NAME = "search_payroll_documents"
 SUBMIT_NAME = "submit_response"
+CAPABILITIES = {
+    "document_search": True,
+    "conversation_and_payroll_intake": True,
+    "employee_records": False,
+    "company_payroll_calendar": False,
+    "payroll_calculation": False,
+    "compensation_requests": False,
+    "mcp_transport": False,
+}
+
+
+def capability_violation(status: str, text: str) -> str | None:
+    """Catch observed capability overclaims; not a complete semantic classifier."""
+    if re.search(
+        r"\b(?:i|we)\s+(?:can|will)\s+(?:(?:then|also|now|help|you)\s+)*"
+        r"(?:calculate|compute)\b|"
+        r"\b(?:i|we)\s+(?:can|will)\s+(?:search|retrieve)\b[^.!?\n]{0,180}"
+        r"\band\s+(?:calculate|compute)\b",
+        text, re.IGNORECASE,
+    ):
+        return "Payroll calculation is unavailable; do not promise to calculate after collecting details"
+    if re.search(
+        r"\b(?:i|we)\s+(?:can|will)\s+(?:retrieve|access|look up)\b"
+        r"[^.!?\n]{0,80}\b(?:employee records?|company (?:payroll )?(?:schedule|calendar))\b",
+        text, re.IGNORECASE,
+    ):
+        return "Employee records and company payroll calendars are not connected"
+    if re.search(
+        r"\b(?:your|the employee's)\s+(?:net|take.home)\s+pay(?:check|cheque)?"
+        r"\s+(?:is|will be|would be|=)\s*\$?\d", text, re.IGNORECASE,
+    ):
+        return "A net-pay amount requires a payroll calculation tool, which is unavailable"
+    missing_employee_data = re.search(
+        r"\b(?:employee (?:records?|data)|(?:company|payroll) (?:payroll )?(?:schedule|calendar)|database)\b",
+        text, re.IGNORECASE,
+    ) and re.search(
+        r"\b(?:no access|(?:do not|don't|cannot|can't) (?:currently )?have access|"
+        r"not (?:currently )?(?:connected|available|implemented)|unavailable|"
+        r"(?:isn't|aren't) (?:connected|available))\b", text, re.IGNORECASE,
+    )
+    if status == "clarification" and missing_employee_data:
+        return "Unavailable employee or company calendar data requires unsupported status, not clarification"
+    return None
 
 
 class FinalResponse(BaseModel):
@@ -60,6 +104,7 @@ class AgentState(TypedDict):
     messages: Annotated[list[BaseMessage], add_messages]
     model_calls: int
     searches: int
+    correction_attempts: int
     evidence: dict[str, dict[str, Any]]
     trace: list[dict[str, Any]]
     outcome: dict[str, Any]
@@ -72,9 +117,32 @@ Follow this payroll skill:
 {skill}
 
 CURRENT IMPLEMENTATION:
-Only document retrieval is available. Employee records, payroll calculations,
-company schedules, compensation requests and MCP are not implemented.
-Do not invent access to them or calculate a net paycheck yourself.
+Runtime capability inventory (true means available):
+{json.dumps(CAPABILITIES)}
+The skill describes the eventual product; the runtime inventory determines what
+you can do NOW. Missing user details cannot enable a disconnected capability.
+Do not invent access or perform payroll arithmetic yourself.
+
+STATUS AND CAPABILITY RULES:
+- Employee-specific payday, employee lookups, company schedules and compensation
+  requests are unsupported. Call submit_response(status="unsupported", citations=[])
+  and explain the missing connection. Do not ask for an employee ID or more personal
+  data as though that would connect a system. For Alex's next payday, say you cannot
+  determine it because employee records and the company payroll calendar are not
+  connected. Do not invent a date or imply you will retrieve the record later.
+- For a salary deduction question with missing inputs, you may use clarification
+  to COLLECT DETAILS ONLY. Explicitly say payroll calculation is not implemented
+  in this prototype. Ask only relevant intake questions and retain the salary and
+  frequency on follow-up. Never say "I can calculate", "I will calculate", or
+  "once you provide details I can calculate". You may offer to retrieve and explain
+  applicable guidance; collected inputs do not enable a calculation tool.
+- Ask for the intended payment date; do not silently use today's date or assume a
+  tax year, TD1 amounts, exemptions, or year-to-date contributions. If details are
+  sufficient but calculation is still requested, use unsupported and explain the
+  unavailable calculation tool. Do not invent an exact deduction or net-pay amount.
+- General payroll document questions can use answer with supporting retrieved
+  sources. Clarification is for missing information relevant to a supported task
+  or transparent payroll intake, never a substitute for explaining unavailable tools.
 Ask for relevant missing details, including payment date and pay frequency
 when selecting deduction tables. Do not ask for unnecessary details for a
 general policy question. Split questions covering multiple topics into searches
@@ -94,8 +162,10 @@ explanation, but stale or unknown applicability must be stated explicitly.
 When you need evidence, call {TOOL_NAME}. To finish, you MUST call {SUBMIT_NAME}
 with status, text, and citations as structured tool arguments. Do not write a
 plain-text or JSON final message. Use a concise explanation, usually 1-3 paragraphs.
-Call {SUBMIT_NAME} alone, after all searches are complete; it immediately ends
-the turn without another model call. Use it for clarification and unsupported
+Call {SUBMIT_NAME} alone, after all searches are complete; a valid submission ends
+the turn without another model call. If the application rejects a completed
+response, it may give you one correction opportunity within the existing call budget.
+Use {SUBMIT_NAME} for clarification and unsupported
 responses too, with an empty citations list when there is no supporting evidence.
 Use status answer only when retrieved evidence supports the response. Cite all
 supporting sources using the citations list and optionally [S1] in text. Do not
@@ -212,6 +282,9 @@ def build_agent(model: Any, retriever: Callable[..., dict] = search_documents):
                 raise ValueError("Answer lacks retrieved evidence")
             if status == "clarification" and citations:
                 raise ValueError("Clarification cannot claim source-backed conclusions")
+            violation = capability_violation(status, text)
+            if violation:
+                raise ValueError(violation)
             outcome = {"status": status, "text": text, "citations": list(dict.fromkeys(citations))}
         except (ValueError, TypeError, KeyError) as error:
             outcome = fallback
@@ -231,14 +304,61 @@ def build_agent(model: Any, retriever: Callable[..., dict] = search_documents):
             outcome["text"] += "\nSome cited editions need update review; current applicability has not been verified."
         return {"outcome": outcome, "trace": [*state["trace"], validation]}
 
+    def route_finish(state: AgentState) -> str:
+        last = state["messages"][-1]
+        if (
+            state["trace"][-1]["status"] == "rejected"
+            and state["correction_attempts"] < MAX_CORRECTIONS
+            and state["model_calls"] < MAX_MODEL_CALLS
+            and isinstance(last, AIMessage)
+            and last.response_metadata.get("status") in (None, "completed")
+        ):
+            return "correct"
+        return "end"
+
+    def correction_node(state: AgentState) -> dict:
+        """Return local validation feedback, not a guessed replacement answer."""
+        attempt = state["correction_attempts"] + 1
+        reason = state["trace"][-1]["reason"]
+        feedback = (
+            f"Application validation feedback: {reason}. Your previous response was rejected. "
+            f"To finish this original user request, call {SUBMIT_NAME} alone, with exactly "
+            "status (answer, clarification, or unsupported), text (a nonempty string), "
+            "and citations (a list of source ID strings). Use citations=[] for clarification "
+            "or an unsupported explanation with no sources. Do not invent missing employee "
+            "records or payroll calculations. Ask for missing details or explain unavailable "
+            "capabilities. A policy answer requires supporting evidence retrieved this turn. "
+            "Employee payday requests must use unsupported because employee records and "
+            "the company payroll calendar are not connected. Salary intake may use clarification "
+            "but must disclose the unavailable calculation tool and must not promise calculation. "
+            f"Available source IDs: {json.dumps(list(state['evidence']))}. "
+            "Do not invent citation IDs or URLs. This is your only correction opportunity; "
+            "the original model-call and search limits still apply."
+        )
+        last = state["messages"][-1]
+        if last.tool_calls:
+            # Pair every rejected call, including mixed batches, without executing it.
+            messages = [ToolMessage(
+                content=json.dumps({"status": "validation_error", "feedback": feedback}),
+                tool_call_id=call["id"], name=call["name"],
+            ) for call in last.tool_calls]
+        else:
+            messages = [HumanMessage(content=feedback)]
+        return {
+            "messages": messages, "correction_attempts": attempt,
+            "trace": [*state["trace"], {"event": "response_correction", "attempt": attempt}],
+        }
+
     graph = StateGraph(AgentState)
     graph.add_node("model", model_node)
     graph.add_node("tools", tools_node)
     graph.add_node("finish", finish_node)
+    graph.add_node("correct", correction_node)
     graph.add_edge(START, "model")
     graph.add_conditional_edges("model", route_model, {"tools": "tools", "finish": "finish"})
     graph.add_conditional_edges("tools", route_tools, {"model": "model", "finish": "finish"})
-    graph.add_edge("finish", END)
+    graph.add_conditional_edges("finish", route_finish, {"correct": "correct", "end": END})
+    graph.add_edge("correct", "model")
     return graph.compile()
 
 
@@ -256,7 +376,8 @@ def run_turn(graph: Any, question: str, history: list[BaseMessage] | None = None
         recent = recent[2:]
     return graph.invoke({
         "messages": [*recent, HumanMessage(content=question)],
-        "model_calls": 0, "searches": 0, "evidence": {}, "trace": [], "outcome": {},
+        "model_calls": 0, "searches": 0, "correction_attempts": 0,
+        "evidence": {}, "trace": [], "outcome": {},
     }, config={"recursion_limit": 16})
 
 
